@@ -1,4 +1,4 @@
-# Sample Demos 
+# Sample Demo
 
 ```
 docker run -e POSTGRES_PASSWORD=dev -p 5432:5432 postgres:17.2
