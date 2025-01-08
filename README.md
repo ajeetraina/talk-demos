@@ -1,6 +1,4 @@
-# Demo 2025
-
-Sample Demos for Tech Talk 2025
+# Sample Demos 
 
 ```
 docker run -e POSTGRES_PASSWORD=dev -p 5432:5432 postgres:17.2
