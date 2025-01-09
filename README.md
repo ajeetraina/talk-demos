@@ -1,5 +1,7 @@
 # Sample Demo
 
+### 1. Method #1
+
 ```
 docker run -e POSTGRES_PASSWORD=dev -p 5432:5432 postgres:17.2
 ```
@@ -87,6 +89,16 @@ name | client_port |         backend_start         |          xact_start        
        |          |  65 |            |       10 | postgres |                  |             |            
 :
 ```
+
+
+## Method 2: Using "Ask Gordon"
+
+Open up Docker dashboard and run a multiple version of postgres with the standard port and POSTGRES_PASSWORD set to dev
+
+
+<img width="902" alt="image" src="https://github.com/user-attachments/assets/9f9eec12-a488-488c-9e82-99a7c8eb3e24" />
+
+
 
 
 
