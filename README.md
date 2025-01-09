@@ -23,7 +23,7 @@ The above command includes three flags:
 - -U - specifies the name of the user to connect as
 - -W - forces psql to ask for the user password before connecting to the database
 
-## Listing all the databases
+## Listing all the databases - \l
 
 ```
 
