@@ -129,8 +129,22 @@ Open the web client (http://localhost:5173) and create a few products.
 
 ### Accessing the database visualizer 
 
-Open [http://localhost:8080](http://localhost:8080) and validate the products exist in the database. 
+Open [http://localhost:5050](http://localhost:5050) and validate the products exist in the database. 
 "Good! We see the UPCs are persisted in the database"
+
+
+Use the following Postgres CLI to check if the products are added or not.
+
+```
+postgres=# \c catalog
+You are now connected to database "catalog" as user "postgres".
+catalog=# SELECT * FROM products;
+  1 | New Product | 100000000001 | 100.00 | f
+  2 | New Product | 100000000002 | 100.00 | f
+  3 | New Product | 100000000003 | 100.00 | f
+```
+
+
 
 ### Access the Kafka Visualizer
 
