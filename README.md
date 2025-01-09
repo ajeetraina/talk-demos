@@ -109,7 +109,10 @@ name | client_port |         backend_start         |          xact_start        
 
 ## Method 2: Using "Ask Gordon"
 
-Open up Docker dashboard and run a multiple version of postgres with the standard port and POSTGRES_PASSWORD set to dev
+```
+Run a multiple version of postgres with the standard port and POSTGRES_PASSWORD set to dev
+```
+
 
 
 <img width="902" alt="image" src="https://github.com/user-attachments/assets/9f9eec12-a488-488c-9e82-99a7c8eb3e24" />
