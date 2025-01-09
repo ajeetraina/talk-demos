@@ -151,10 +151,19 @@ catalog=# SELECT * FROM products;
 
 ### Access the Kafka Visualizer
 
+> Assuming that you open the `src/services/ProductService.js` file and the following line is missing under line ~52:
+
+```
+upc: product.upc,
+```
+>
+
 Open the Kafka visualizer [http://localhost:8080](http://localhost:8080) and look at the published messages. 
 "Ah! We see the messages don't have the UPC"
 
-<img width="1269" alt="image" src="https://github.com/user-attachments/assets/7cc20f65-47da-4cd6-ae6e-b0b1d2c9ce85" />
+<img width="1213" alt="image" src="https://github.com/user-attachments/assets/a3e3ff3d-f08c-4168-bfb2-e59800be4d58" />
+
+
 
 ## Let's fix it...
 
