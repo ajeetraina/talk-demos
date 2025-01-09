@@ -60,7 +60,7 @@ postgres=#
 ## Run the following command to show the database activity:
 
 ```
-SELECT * from pg_stat_activity
+SELECT * from pg_stat_activity;  <--- DONT FORGET ";"
 ```
 
 ## Result:
