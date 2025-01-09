@@ -136,6 +136,9 @@ Open [http://localhost:5050](http://localhost:5050) and validate the products ex
 Use the following Postgres CLI to check if the products are added or not.
 
 ```
+# psql -U postgres
+psql (17.1 (Debian 17.1-1.pgdg120+1))
+Type "help" for help
 postgres=# \c catalog
 You are now connected to database "catalog" as user "postgres".
 catalog=# SELECT * FROM products;
