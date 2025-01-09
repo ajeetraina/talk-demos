@@ -1,10 +1,26 @@
 # Sample Demo
 
-### 1. Method #1
+## Run #1:
+
 
 ```
-docker run -e POSTGRES_PASSWORD=dev -p 5432:5432 postgres:17.2
+docker run -d --name postgres1 -e POSTGRES_PASSWORD=dev -p 5432:5432 postgres:latest
 ```
+
+
+## Run #2
+
+```
+docker run -d --name postgres2 -e POSTGRES_PASSWORD=dev -p 5433:5432 postgres:13
+```
+
+## Run #3
+
+```
+docker run -d --name postgres3 -e POSTGRES_PASSWORD=dev -p 5434:5432 postgres:12
+
+```
+
 
 Open Docker Dashboard and run the following commands:
 
