@@ -151,12 +151,12 @@ catalog=# SELECT * FROM products;
 
 ### Access the Kafka Visualizer
 
-> Assuming that you open the `src/services/ProductService.js` file and the following line is missing under line ~52:
+Before we access visualizer, let's apply the patch:
 
 ```
-upc: product.upc,
+git apply demo/e2e.patch
 ```
->
+
 
 Open the Kafka visualizer [http://localhost:8080](http://localhost:8080) and look at the published messages. 
 "Ah! We see the messages don't have the UPC"
