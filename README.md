@@ -168,6 +168,10 @@ upc: product.upc,
 ```
 
 Save the file and create a new product using the web UI. 
+
+
+<img width="1191" alt="image" src="https://github.com/user-attachments/assets/32c5ba6c-60c1-403b-9962-50c501a5e996" />
+
 Validate the message has the expected contents.
 
 
