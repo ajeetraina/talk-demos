@@ -154,6 +154,11 @@ catalog=# SELECT * FROM products;
 Open the Kafka visualizer [http://localhost:8080](http://localhost:8080) and look at the published messages. 
 "Ah! We see the messages don't have the UPC"
 
+<img width="1269" alt="image" src="https://github.com/user-attachments/assets/7cc20f65-47da-4cd6-ae6e-b0b1d2c9ce85" />
+
+## Let's fix it...
+
+
 ### Configuring 
 
 In VS Code, open the `src/services/ProductService.js` file and add the following to the publishEvent on line ~52:
