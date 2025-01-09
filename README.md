@@ -1,6 +1,6 @@
 # Sample Demo
 
-## Run #1:
+## Step 1: Running Multiple Postgres Containers
 
 
 ```
@@ -101,9 +101,54 @@ name | client_port |         backend_start         |          xact_start        
 Run a multiple version of postgres with the standard port and POSTGRES_PASSWORD set to dev
 ```
 
+## Step 2: 
+
+### Clone the repo
+
+```
+git clone https://github.com/dockersamples/catalog-service-node
+```
+
+### Run the Compose
+
+```
+docker compose up -d
+```
+
+### Bring up the API service 
 
 
-<img width="902" alt="image" src="https://github.com/user-attachments/assets/9f9eec12-a488-488c-9e82-99a7c8eb3e24" />
+```
+yarn install
+yarn dev
+```
+
+### Accessing the Web Client
+
+Open the web client (http://localhost:5173) and create a few products.
+
+### Accessing the database visualizer 
+
+Open [http://localhost:8080](http://localhost:8080) and validate the products exist in the database. 
+"Good! We see the UPCs are persisted in the database"
+
+### Access the Kafka Visualizer
+
+Open the Kafka visualizer [http://localhost:8080](http://localhost:8080) and look at the published messages. 
+"Ah! We see the messages don't have the UPC"
+
+### Configuring 
+
+In VS Code, open the `src/services/ProductService.js` file and add the following to the publishEvent on line ~52:
+
+```
+upc: product.upc,
+```
+
+Save the file and create a new product using the web UI. 
+Validate the message has the expected contents.
+
+
 
 
 
