@@ -115,6 +115,12 @@ git clone https://github.com/dockersamples/catalog-service-node
 docker compose up -d
 ```
 
+## Run e2e.patch
+
+```
+git apply demo/e2e.patch
+```
+
 ### Bring up the API service 
 
 
