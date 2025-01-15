@@ -101,6 +101,11 @@ name | client_port |         backend_start         |          xact_start        
 Run a multiple version of postgres with the standard port and POSTGRES_PASSWORD set to dev
 ```
 
+## Remove the container
+
+```
+Delete or remove the running container"
+
 ## Step 2: 
 
 ### Clone the repo
@@ -189,6 +194,22 @@ Save the file and create a new product using the web UI.
 
 Validate the message has the expected contents.
 
+
+## Testing
+
+```
+yarn unit-test
+yarn integration-test
+```
+
+Open Testcontainer Desktop app and you'll notice that 3 containers appear and disppear.
+
+## Using Docker Build Cloud
+
+```
+docker buildx create --driver cloud dockerdevrel/demo-builder
+docker buildx build --builder cloud-dockerdevrel-demo-builder .
+```
 
 
 
