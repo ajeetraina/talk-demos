@@ -260,6 +260,29 @@ docker buildx build --builder cloud-dockerdevrel-demo-builder .
 
 Method:2 =- Running it using GitHub Workflow
 
+Open dockersamples/ repo and show them workflow
+
+## Secure - Scout
+
+Before you proceed ensure that you point build to local Docker Desktop.
+
+
+```
+git apply --reject  demo/scout.patch
+```
+
+If ou face issue like 
+
+```
+>>> COPY package.json yarn.lock ./
+```
+
+then remove node_modules, yarm.lock and then re-run 
+```
+yarn install
+```
+
+This time it will build the image.
 
 
 
