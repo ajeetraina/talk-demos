@@ -165,9 +165,6 @@ catalog=# SELECT * FROM products;
 
 Before we access visualizer, let's apply the patch:
 
-```
-git apply demo/e2e.patch
-```
 
 
 Open the Kafka visualizer [http://localhost:8080](http://localhost:8080) and look at the published messages. 
