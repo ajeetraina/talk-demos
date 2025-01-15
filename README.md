@@ -105,6 +105,7 @@ Run a multiple version of postgres with the standard port and POSTGRES_PASSWORD 
 
 ```
 Delete or remove the running container"
+```
 
 ## Step 2: 
 
