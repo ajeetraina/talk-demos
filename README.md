@@ -164,8 +164,14 @@ the event is likely used to trigger downstream processes or integrate with other
 
 
 ```
-yarn install
-yarn dev
+npm install
+npm run dev
+```
+
+## Apply the patch:
+
+```
+git apply demo/e2e.patch
 ```
 
 ### Accessing the Web Client
