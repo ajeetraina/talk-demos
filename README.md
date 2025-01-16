@@ -303,25 +303,15 @@ Open dockersamples/ repo and show them workflow
 
 ## Secure - Scout
 
-Before you proceed ensure that you point build to local Docker Desktop.
-
-
 ```
-git apply --reject  demo/scout.patch
+docker build -t newcatalog .
 ```
 
-If ou face issue like 
+<img width="1128" alt="image" src="https://github.com/user-attachments/assets/bd5a0dfd-8580-4b39-951f-7f7d920887c8" />
 
-```
->>> COPY package.json yarn.lock ./
-```
 
-then remove node_modules, yarm.lock and then re-run 
-```
-yarn install
-```
 
-This time it will build the image.
+
 
 
 
