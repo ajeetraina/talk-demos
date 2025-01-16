@@ -235,8 +235,8 @@ Validate the message has the expected contents.
 ## Testing
 
 ```
-yarn unit-test
-yarn integration-test
+npm run unit-test
+npm run integration-test
 ```
 
 ```
