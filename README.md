@@ -121,10 +121,43 @@ git clone https://github.com/dockersamples/catalog-service-node
 docker compose up -d
 ```
 
-## Run e2e.patch
+## Setting up the Demo
+
+
+Open up ProductServices and add the following explanation:
 
 ```
-git apply demo/e2e.patch
+This file is part of a Node.js application that manages a product catalog service.
+The code provides functions to interact with a PostgreSQL database, retrieve product information,
+manage product images, and publish events related to product operations.
+The file exports several functions:
+getProducts: Retrieves all products from the database.
+createProduct: Creates a new product in the database and publishes an event.
+getProductById: Retrieves a product by its ID, including inventory information.
+getProductImage: Retrieves the image associated with a product using the StorageService.
+uploadProductImage: Uploads an image for a product and updates the database.
+teardown: Closes the database connection.
+The code uses the pg library for PostgreSQL connectivity, and it imports functions from other
+services (InventoryService, StorageService, and PublisherService) to perform related operations.
+
+Let's pick up the piece of code and ensure that UPC is not reflected.
+
+
+This code snippet is calling a function named publishEvent with two arguments:
+"products" and an object containing event details.
+
+The publishEvent function is likely defined in the PublisherService file and is
+responsible for publishing events related to product operations.
+The event being published is "product_created", and it includes the following details:
+- id: The ID of the newly created product.
+- name: The name of the product.
+- price: The price of the product.
+
+The purpose of publishing this event could be to notify other services or systems about the creation of a
+new product, allowing them to perform additional actions or updates. In this case,
+the event is likely used to trigger downstream processes or integrate with other systems.
+
+
 ```
 
 ### Bring up the API service 
