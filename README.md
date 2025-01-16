@@ -1,4 +1,4 @@
-# Sample Demo
+# Sample Demo - Product Catalog
 
 ## Step 1: Running Multiple Postgres Containers
 
