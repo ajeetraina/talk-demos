@@ -318,6 +318,12 @@ patch -p1 < /demo/scout.patch
 
 <img width="1141" alt="image" src="https://github.com/user-attachments/assets/d95fe357-aad2-45ba-ae0d-b81fe743a898" />
 
+How to revert back to the fixed vulnerabilities:
+
+```
+patch -R -p1 < demo/scout.patch
+```
+
 
 
 
