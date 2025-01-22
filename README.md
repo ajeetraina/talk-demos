@@ -168,6 +168,26 @@ npm install
 npm run dev
 ```
 
+### What happens when you run `npm install`?
+
+When you run `npm install` in a project directory, it reads the `package.json` file and installs all the dependencies listed in the `dependencies` section. 
+It also installs any dependencies listed in the devDependencies section if the --save-dev or -D flag is used.
+
+Here's a step-by-step explanation of what happens when you run `npm install`:
+
+1. It checks if the package-lock.json file exists. If it does, npm uses the versions specified in the lock file to install the dependencies. If the lock file is missing or out of date, npm generates a new lock file based on the current package.json and installed dependencies.
+2. It creates a node_modules directory if it doesn't exist.
+3. It installs the dependencies listed in the package.json file. For each dependency, it checks if it's already installed in the node_modules directory. If not, it downloads the dependency from the npm registry and installs it.
+4. It installs any dependencies listed in the dependencies section.
+5. If the --save or -S flag is used, npm adds the installed dependency to the dependencies section in the package.json file.
+6. If the --save-dev or -D flag is used, npm adds the installed dependency to the devDependencies section in the package.json file.
+7. It runs any scripts specified in the scripts section of the package.json file with the preinstall and install keys.
+8. It updates the package-lock.json file with the installed dependencies and their versions.
+In your case, when you run npm install, it will install all the dependencies listed in the dependencies and devDependencies sections of the package.json file. It will also create a node_modules directory and download the dependencies into it.
+
+When you run `npm run dev` in a project directory, it executes the script associated with the dev key in the scripts section of the package.json file.
+
+
 ## Apply the patch:
 
 ```
