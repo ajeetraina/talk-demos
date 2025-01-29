@@ -157,6 +157,7 @@ Edit and add the following JSON file. Refer https://github.com/modelcontextproto
 }
 ```
 
+<img width="696" alt="image" src="https://github.com/user-attachments/assets/ee6f8aed-a69e-42bc-b3f3-587acbf5f2bb" />
 
 
 ## NPX + Kubernetes MCP Server + Docker Desktop
