@@ -125,6 +125,14 @@ CREATE TABLE products (
 );
 ```
 
+## Query the list of tables
+
+```
+SELECT table_name 
+FROM information_schema.tables 
+WHERE table_schema = 'public';
+```
+
 ## Method 2: Using "Ask Gordon"
 
 ```
