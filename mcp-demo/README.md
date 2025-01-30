@@ -160,6 +160,63 @@ Edit and add the following JSON file. Refer https://github.com/modelcontextproto
 <img width="696" alt="image" src="https://github.com/user-attachments/assets/ee6f8aed-a69e-42bc-b3f3-587acbf5f2bb" />
 
 
+## Demo 2: Neo4j
+
+- Bring up Neo4j Docker Extension
+- Login using Neo4j as username and password as password
+- Select Movie Sample Database
+
+
+<img width="1222" alt="image" src="https://github.com/user-attachments/assets/099a105e-211f-402e-a042-ea7d67cc35b5" />
+
+
+- Open Claude Desktop Client and add the following config:
+
+```
+{
+  "mcpServers": {
+    "neo4j": {
+      "command": "npx",
+      "args": ["@alanse/mcp-neo4j-server"],
+      "env": {
+        "NEO4J_URI": "neo4j://localhost:7687",
+        "NEO4J_USERNAME": "neo4j",
+        "NEO4J_PASSWORD": "password"
+      }
+    }
+  }
+}
+```
+
+You can validate the available MCP Tools
+
+<img width="495" alt="image" src="https://github.com/user-attachments/assets/e62e85cf-4076-4091-9036-9e55d3789c8e" />
+
+
+- Enter the prompt:
+  
+
+```
+Show me all the movies acted by Keanu Reeves
+```
+
+<img width="658" alt="image" src="https://github.com/user-attachments/assets/59ec18d0-2531-4802-bc57-8c000847270d" />
+
+- Enter the prompt:
+
+  ```
+  Add Ajeet Raina as the director of all these movies
+  ```
+
+<img width="670" alt="image" src="https://github.com/user-attachments/assets/8254cbc0-3f6b-466b-aad0-f7f1c5ece7ae" />
+
+- Verify the result:
+
+
+<img width="667" alt="image" src="https://github.com/user-attachments/assets/8314a07d-9c6e-4702-ae78-a33bd2b62f78" />
+
+
+
 ## NPX + Kubernetes MCP Server + Docker Desktop
 
 
