@@ -151,7 +151,7 @@ Edit and add the following JSON file. Refer https://github.com/modelcontextproto
         "-i", 
         "--rm", 
         "mcp/postgres", 
-        "postgresql://postgres:dev@host.docker.internal:5432/postgres"]
+        "postgresql://postgres:dev@host.docker.internal:5433/postgres"]
     }
   }
 }
