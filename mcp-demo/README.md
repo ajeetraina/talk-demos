@@ -1,5 +1,55 @@
 # MCP Demo
 
+- Install Docker Desktop
+- Enable Kubernetes
+- Setup 3 Node Kubernetes Cluster
+
+```
+kubectl get nodes
+NAME                    STATUS   ROLES           AGE     VERSION
+desktop-control-plane   Ready    control-plane   2m14s   v1.31.1
+desktop-worker          Ready    <none>          2m      v1.31.1
+desktop-worker2         Ready    <none>          2m      v1.31.1
+```
+
+Open Claude Config and add the following entry:
+
+```
+{
+  "mcpServers": {
+    "postgres": {
+      "command": "docker",
+      "args": [
+        "run", 
+        "-i", 
+        "--rm", 
+        "mcp/postgres", 
+        "postgresql://postgres:dev@host.docker.internal:5433/postgres"
+      ]
+    },
+    "neo4j": {
+      "command": "npx",
+      "args": ["@alanse/mcp-neo4j-server"],
+      "env": {
+        "NEO4J_URI": "neo4j://localhost:7687",
+        "NEO4J_USERNAME": "neo4j",
+        "NEO4J_PASSWORD": "password"
+      }
+    },
+    "kubernetes": {
+      "command": "npx",
+      "args": ["mcp-server-kubernetes"]
+    }
+   } 
+ }
+```
+
+
+
+<img width="679" alt="image" src="https://github.com/user-attachments/assets/87f4cff6-b18e-4622-b313-f44358399923" />
+
+
+
 ## Demo 1: PostgreSQL MCP Server
 
 - Install Docker Desktop
