@@ -44,6 +44,22 @@ Open Claude Config and add the following entry:
  }
 ```
 
+## Prompt 1: 
+```
+How many node cluster is your Kubernetes
+```
+
+## Prompt 2:
+
+```
+Can you deploy 3 instances of Nginx server on all the nodes
+```
+
+## Prompt 3:
+
+```
+list all the pods
+```
 
 
 <img width="679" alt="image" src="https://github.com/user-attachments/assets/87f4cff6-b18e-4622-b313-f44358399923" />
