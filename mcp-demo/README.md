@@ -160,6 +160,11 @@ Edit and add the following JSON file. Refer https://github.com/modelcontextproto
 <img width="696" alt="image" src="https://github.com/user-attachments/assets/ee6f8aed-a69e-42bc-b3f3-587acbf5f2bb" />
 
 
+## Prompt: Show me the schema of the existing database
+
+
+
+
 ## Demo 2: Neo4j
 
 - Bring up Neo4j Docker Extension
