@@ -162,7 +162,33 @@ Edit and add the following JSON file. Refer https://github.com/modelcontextproto
 
 ## Prompt: Show me the schema of the existing database
 
+## Using Multiple MCP Server
 
+```
+{
+  "mcpServers": {
+    "postgres": {
+      "command": "docker",
+      "args": [
+        "run", 
+        "-i", 
+        "--rm", 
+        "mcp/postgres", 
+        "postgresql://postgres:dev@host.docker.internal:5432/postgres"
+      ]
+    },
+    "neo4j": {
+      "command": "npx",
+      "args": ["@alanse/mcp-neo4j-server"],
+      "env": {
+        "NEO4J_URI": "neo4j://localhost:7687",
+        "NEO4J_USERNAME": "neo4j",
+        "NEO4J_PASSWORD": "password"
+      }
+    }
+  }
+}
+```
 
 
 ## Demo 2: Neo4j
