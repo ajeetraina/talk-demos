@@ -190,6 +190,16 @@ Edit and add the following JSON file. Refer https://github.com/modelcontextproto
 }
 ```
 
+## 1st Prompt:
+
+```
+Are you able to connect to neo4j database
+```
+
+
+
+
+
 
 ## Demo 2: Neo4j
 
@@ -236,7 +246,7 @@ Show me all the movies acted by Keanu Reeves
 - Enter the prompt:
 
   ```
-  Add Ajeet Raina as the director of all these movies
+  Add Ajeet Raina as the director for all his movies
   ```
 
 <img width="670" alt="image" src="https://github.com/user-attachments/assets/8254cbc0-3f6b-466b-aad0-f7f1c5ece7ae" />
