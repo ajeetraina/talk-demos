@@ -109,9 +109,9 @@ You will find that it misses UPC code:
 
 ## Adding UPC
 
-Open ProductService.js under /catalog-service-node/src/services and add upc entry on line 52
+Open `ProductService.js` under `/catalog-service-node/src/services` and add upc entry on line 52
 
-Try adding new products and see UPC code gets reflected
+Try adding new products and see UPC code gets reflected.
 
 <img width="1221" alt="image" src="https://github.com/user-attachments/assets/d0951acd-0f48-4cb6-b889-4d26aba9886f" />
 
