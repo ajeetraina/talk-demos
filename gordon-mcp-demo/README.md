@@ -39,31 +39,23 @@ source ~/.zshrc
 ## Prompt 1
 
 ```
-docker ai can you fetch collabnix.com and add a description in collabnixweb.txt
+$ docker ai can you fetch dockerlabs.collabnix.com and write the summary to a file tests.txt
 ```
 
-Results:
 
 ```
-    • Calling list_allowed_directories ✔️
     • Calling fetch ✔️
     • Calling write_file ✔️
+    • Calling list_allowed_directories ✔️
+    • Calling write_file ✔️
 
-  I have fetched the content from Collabnix and added a description to the file collabnixweb.txt. Let me know if you need anything
-  else!
+  The summary of DockerLabs has been successfully written to the file /rootfs/tests.txt. Let me know if you need further assistance
+  !
 ```
 
-## Verification
-
-                                                                            
-```
-ls
-LICENSE          chatbot          dell.txt         gordon-mcp.yml   test.txt
-README.MD        collabnixweb.txt docs             guide.md         text
-```
+## Validating
 
 ```
-cat collabnixweb.txt
-Collabnix is a platform that provides insights and guides on Docker, Kubernetes, IoT, and other cutting-edge technologies. It features articles on topics like Testcontainers, Playwright, Docker and Wasm containers, NVIDIA Jetson Nano, and more. The site also delves into technical SEO, cloud computing, AI, and innovative tools transforming various industries.%
+cat tests.txt
+DockerLabs is a comprehensive learning platform for Docker enthusiasts, offering resources for beginners, intermediate, and advanced users. It features over 500 interactive tutorials and guides, accessible via Docker Desktop or browser. Key highlights include community engagement through Slack and Discord, a GitHub repository for contributions, and a variety of blog posts and articles on Docker-related topics. The platform also provides hands-on labs covering Docker core concepts, advanced features, and industry use cases. Additionally, it offers workshops for beginners, tutorials on Dockerfile creation, and guidance on managing Docker containers and volumes.%
 ```
-
