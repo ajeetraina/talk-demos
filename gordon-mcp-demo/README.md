@@ -27,7 +27,7 @@ Initialized github
 Ensure that you add your PAT to ~/.zshrc like:
 
 ```
-export GITHUB_PERSONAL_ACCESS_TOKEN="XXX"
+export GITHUB_PERSONAL_ACCESS_TOKEN='XXX'
 ```
 
 Next, source the shell
