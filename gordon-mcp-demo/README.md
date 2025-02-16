@@ -36,7 +36,7 @@ Next, source the shell
 source ~/.zshrc
 ```
 
-## Prompt 1:
+## Prompt 1
 
 ```
 docker ai can you fetch collabnix.com and add a description in collabnixweb.txt
@@ -55,7 +55,7 @@ Results:
 
 ## Verification
 
-                                                                                                      👍 Helpful 👎 Not helpful
+                                                                            
 ```
 ls
 LICENSE          chatbot          dell.txt         gordon-mcp.yml   test.txt
