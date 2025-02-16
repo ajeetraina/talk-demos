@@ -1,0 +1,1008 @@
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Base Branch"
+      },
+      "branch_name": {
+        "title": "Branch Name",
+        "type": "string"
+      },
+      "repo_path": {
+        "title": "Repo Path",
+        "type": "string"
+      }
+    },
+    "required": [
+      "repo_path",
+      "branch_name"
+    ]
+  }
+}
+{
+  "name": "git_checkout",
+  "description": "Switches branches",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "branch_name": {
+        "title": "Branch Name",
+        "type": "string"
+      },
+      "repo_path": {
+        "title": "Repo Path",
+        "type": "string"
+      }
+    },
+    "required": [
+      "repo_path",
+      "branch_name"
+    ]
+  }
+}
+{
+  "name": "git_show",
+  "description": "Shows the contents of a commit",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "repo_path": {
+        "title": "Repo Path",
+        "type": "string"
+      },
+      "revision": {
+        "title": "Revision",
+        "type": "string"
+      }
+    },
+    "required": [
+      "repo_path",
+      "revision"
+    ]
+  }
+}
+{
+  "name": "read_file",
+  "description": "Read the complete contents of a file from the file system. Handles various text encodings and provides detailed error messages if the file cannot be read. Use this tool when you need to examine the contents of a single file. Only works within allowed directories.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "path": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "path"
+    ]
+  }
+}
+{
+  "name": "read_multiple_files",
+  "description": "Read the contents of multiple files simultaneously. This is more efficient than reading files one by one when you need to analyze or compare multiple files. Each file's content is returned with its path as a reference. Failed reads for individual files won't stop the entire operation. Only works within allowed directories.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "paths": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      }
+    },
+    "required": [
+      "paths"
+    ]
+  }
+}
+{
+  "name": "write_file",
+  "description": "Create a new file or completely overwrite an existing file with new content. Use with caution as it will overwrite existing files without warning. Handles text content with proper encoding. Only works within allowed directories.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "content": {
+        "type": "string"
+      },
+      "path": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "path",
+      "content"
+    ]
+  }
+}
+{
+  "name": "edit_file",
+  "description": "Make line-based edits to a text file. Each edit replaces exact line sequences with new content. Returns a git-style diff showing the changes made. Only works within allowed directories.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "dryRun": {
+        "default": false,
+        "description": "Preview changes using git-style diff format",
+        "type": "boolean"
+      },
+      "edits": {
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "newText": {
+              "description": "Text to replace with",
+              "type": "string"
+            },
+            "oldText": {
+              "description": "Text to search for - must match exactly",
+              "type": "string"
+            }
+          },
+          "required": [
+            "oldText",
+            "newText"
+          ],
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "path": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "path",
+      "edits"
+    ]
+  }
+}
+{
+  "name": "create_directory",
+  "description": "Create a new directory or ensure a directory exists. Can create multiple nested directories in one operation. If the directory already exists, this operation will succeed silently. Perfect for setting up directory structures for projects or ensuring required paths exist. Only works within allowed directories.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "path": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "path"
+    ]
+  }
+}
+{
+  "name": "list_directory",
+  "description": "Get a detailed listing of all files and directories in a specified path. Results clearly distinguish between files and directories with [FILE] and [DIR] prefixes. This tool is essential for understanding directory structure and finding specific files within a directory. Only works within allowed directories.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "path": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "path"
+    ]
+  }
+}
+{
+  "name": "directory_tree",
+  "description": "Get a recursive tree view of files and directories as a JSON structure. Each entry includes 'name', 'type' (file/directory), and 'children' for directories. Files have no children array, while directories always have a children array (which may be empty). The output is formatted with 2-space indentation for readability. Only works within allowed directories.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "path": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "path"
+    ]
+  }
+}
+{
+  "name": "move_file",
+  "description": "Move or rename files and directories. Can move files between directories and rename them in a single operation. If the destination exists, the operation will fail. Works across different directories and can be used for simple renaming within the same directory. Both source and destination must be within allowed directories.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "destination": {
+        "type": "string"
+      },
+      "source": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "source",
+      "destination"
+    ]
+  }
+}
+{
+  "name": "search_files",
+  "description": "Recursively search for files and directories matching a pattern. Searches through all subdirectories from the starting path. The search is case-insensitive and matches partial names. Returns full paths to all matching items. Great for finding files when you don't know their exact location. Only searches within allowed directories.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "excludePatterns": {
+        "default": [],
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "path": {
+        "type": "string"
+      },
+      "pattern": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "path",
+      "pattern"
+    ]
+  }
+}
+{
+  "name": "get_file_info",
+  "description": "Retrieve detailed metadata about a file or directory. Returns comprehensive information including size, creation time, last modified time, permissions, and type. This tool is perfect for understanding file characteristics without reading the actual content. Only works within allowed directories.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "path": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "path"
+    ]
+  }
+}
+{
+  "name": "list_allowed_directories",
+  "description": "Returns the list of directories that this server is allowed to access. Use this to understand which directories are available before trying to access files.",
+  "inputSchema": {
+    "type": "object"
+  }
+}
+{
+  "name": "get_current_time",
+  "description": "Get current time in a specific timezones",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "timezone": {
+        "description": "IANA timezone name (e.g., 'America/New_York', 'Europe/London'). Use 'UTC' as local timezone if no timezone provided by the user.",
+        "type": "string"
+      }
+    },
+    "required": [
+      "timezone"
+    ]
+  }
+}
+{
+  "name": "convert_time",
+  "description": "Convert time between timezones",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "source_timezone": {
+        "description": "Source IANA timezone name (e.g., 'America/New_York', 'Europe/London'). Use 'UTC' as local timezone if no source timezone provided by the user.",
+        "type": "string"
+      },
+      "target_timezone": {
+        "description": "Target IANA timezone name (e.g., 'Asia/Tokyo', 'America/San_Francisco'). Use 'UTC' as local timezone if no target timezone provided by the user.",
+        "type": "string"
+      },
+      "time": {
+        "description": "Time to convert in 24-hour format (HH:MM)",
+        "type": "string"
+      }
+    },
+    "required": [
+      "source_timezone",
+      "time",
+      "target_timezone"
+    ]
+  }
+}
+{
+  "name": "create_or_update_file",
+  "description": "Create or update a single file in a GitHub repository",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "branch": {
+        "description": "Branch to create/update the file in",
+        "type": "string"
+      },
+      "content": {
+        "description": "Content of the file",
+        "type": "string"
+      },
+      "message": {
+        "description": "Commit message",
+        "type": "string"
+      },
+      "owner": {
+        "description": "Repository owner (username or organization)",
+        "type": "string"
+      },
+      "path": {
+        "description": "Path where to create/update the file",
+        "type": "string"
+      },
+      "repo": {
+        "description": "Repository name",
+        "type": "string"
+      },
+      "sha": {
+        "description": "SHA of the file being replaced (required when updating existing files)",
+        "type": "string"
+      }
+    },
+    "required": [
+      "owner",
+      "repo",
+      "path",
+      "content",
+      "message",
+      "branch"
+    ]
+  }
+}
+{
+  "name": "search_repositories",
+  "description": "Search for GitHub repositories",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "description": "Page number for pagination (default: 1)",
+        "type": "number"
+      },
+      "perPage": {
+        "description": "Number of results per page (default: 30, max: 100)",
+        "type": "number"
+      },
+      "query": {
+        "description": "Search query (see GitHub search syntax)",
+        "type": "string"
+      }
+    },
+    "required": [
+      "query"
+    ]
+  }
+}
+{
+  "name": "create_repository",
+  "description": "Create a new GitHub repository in your account",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "autoInit": {
+        "description": "Initialize with README.md",
+        "type": "boolean"
+      },
+      "description": {
+        "description": "Repository description",
+        "type": "string"
+      },
+      "name": {
+        "description": "Repository name",
+        "type": "string"
+      },
+      "private": {
+        "description": "Whether the repository should be private",
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "name"
+    ]
+  }
+}
+{
+  "name": "get_file_contents",
+  "description": "Get the contents of a file or directory from a GitHub repository",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "branch": {
+        "description": "Branch to get contents from",
+        "type": "string"
+      },
+      "owner": {
+        "description": "Repository owner (username or organization)",
+        "type": "string"
+      },
+      "path": {
+        "description": "Path to the file or directory",
+        "type": "string"
+      },
+      "repo": {
+        "description": "Repository name",
+        "type": "string"
+      }
+    },
+    "required": [
+      "owner",
+      "repo",
+      "path"
+    ]
+  }
+}
+{
+  "name": "push_files",
+  "description": "Push multiple files to a GitHub repository in a single commit",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "branch": {
+        "description": "Branch to push to (e.g., 'main' or 'master')",
+        "type": "string"
+      },
+      "files": {
+        "description": "Array of files to push",
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "content": {
+              "description": "Content of the file",
+              "type": "string"
+            },
+            "path": {
+              "description": "Path where to create the file",
+              "type": "string"
+            }
+          },
+          "required": [
+            "path",
+            "content"
+          ],
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "message": {
+        "description": "Commit message",
+        "type": "string"
+      },
+      "owner": {
+        "description": "Repository owner (username or organization)",
+        "type": "string"
+      },
+      "repo": {
+        "description": "Repository name",
+        "type": "string"
+      }
+    },
+    "required": [
+      "owner",
+      "repo",
+      "branch",
+      "files",
+      "message"
+    ]
+  }
+}
+{
+  "name": "create_issue",
+  "description": "Create a new issue in a GitHub repository",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "assignees": {
+        "description": "Array of usernames to assign",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "body": {
+        "description": "Issue body/description",
+        "type": "string"
+      },
+      "labels": {
+        "description": "Array of label names",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "milestone": {
+        "description": "Milestone number to assign",
+        "type": "number"
+      },
+      "owner": {
+        "description": "Repository owner (username or organization)",
+        "type": "string"
+      },
+      "repo": {
+        "description": "Repository name",
+        "type": "string"
+      },
+      "title": {
+        "description": "Issue title",
+        "type": "string"
+      }
+    },
+    "required": [
+      "owner",
+      "repo",
+      "title"
+    ]
+  }
+}
+{
+  "name": "create_pull_request",
+  "description": "Create a new pull request in a GitHub repository",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "base": {
+        "description": "The name of the branch you want the changes pulled into",
+        "type": "string"
+      },
+      "body": {
+        "description": "Pull request body/description",
+        "type": "string"
+      },
+      "draft": {
+        "description": "Whether to create the pull request as a draft",
+        "type": "boolean"
+      },
+      "head": {
+        "description": "The name of the branch where your changes are implemented",
+        "type": "string"
+      },
+      "maintainer_can_modify": {
+        "description": "Whether maintainers can modify the pull request",
+        "type": "boolean"
+      },
+      "owner": {
+        "description": "Repository owner (username or organization)",
+        "type": "string"
+      },
+      "repo": {
+        "description": "Repository name",
+        "type": "string"
+      },
+      "title": {
+        "description": "Pull request title",
+        "type": "string"
+      }
+    },
+    "required": [
+      "owner",
+      "repo",
+      "title",
+      "head",
+      "base"
+    ]
+  }
+}
+{
+  "name": "fork_repository",
+  "description": "Fork a GitHub repository to your account or specified organization",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "organization": {
+        "description": "Optional: organization to fork to (defaults to your personal account)",
+        "type": "string"
+      },
+      "owner": {
+        "description": "Repository owner (username or organization)",
+        "type": "string"
+      },
+      "repo": {
+        "description": "Repository name",
+        "type": "string"
+      }
+    },
+    "required": [
+      "owner",
+      "repo"
+    ]
+  }
+}
+{
+  "name": "create_branch",
+  "description": "Create a new branch in a GitHub repository",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "branch": {
+        "description": "Name for the new branch",
+        "type": "string"
+      },
+      "from_branch": {
+        "description": "Optional: source branch to create from (defaults to the repository's default branch)",
+        "type": "string"
+      },
+      "owner": {
+        "description": "Repository owner (username or organization)",
+        "type": "string"
+      },
+      "repo": {
+        "description": "Repository name",
+        "type": "string"
+      }
+    },
+    "required": [
+      "owner",
+      "repo",
+      "branch"
+    ]
+  }
+}
+{
+  "name": "list_commits",
+  "description": "Get list of commits of a branch in a GitHub repository",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "owner": {
+        "description": "Repository owner (username or organization)",
+        "type": "string"
+      },
+      "page": {
+        "description": "Page number for pagination (default: 1)",
+        "type": "number"
+      },
+      "perPage": {
+        "description": "Number of results per page (default: 30, max: 100)",
+        "type": "number"
+      },
+      "repo": {
+        "description": "Repository name",
+        "type": "string"
+      },
+      "sha": {
+        "description": "SHA of the file being replaced (required when updating existing files)",
+        "type": "string"
+      }
+    },
+    "required": [
+      "owner",
+      "repo"
+    ]
+  }
+}
+{
+  "name": "list_issues",
+  "description": "List issues in a GitHub repository with filtering options",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "direction": {
+        "enum": [
+          "asc",
+          "desc"
+        ],
+        "type": "string"
+      },
+      "labels": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "owner": {
+        "type": "string"
+      },
+      "page": {
+        "type": "number"
+      },
+      "per_page": {
+        "type": "number"
+      },
+      "repo": {
+        "type": "string"
+      },
+      "since": {
+        "type": "string"
+      },
+      "sort": {
+        "enum": [
+          "created",
+          "updated",
+          "comments"
+        ],
+        "type": "string"
+      },
+      "state": {
+        "enum": [
+          "open",
+          "closed",
+          "all"
+        ],
+        "type": "string"
+      }
+    },
+    "required": [
+      "owner",
+      "repo"
+    ]
+  }
+}
+{
+  "name": "update_issue",
+  "description": "Update an existing issue in a GitHub repository",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "assignees": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "body": {
+        "type": "string"
+      },
+      "issue_number": {
+        "type": "number"
+      },
+      "labels": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "milestone": {
+        "type": "number"
+      },
+      "owner": {
+        "type": "string"
+      },
+      "repo": {
+        "type": "string"
+      },
+      "state": {
+        "enum": [
+          "open",
+          "closed"
+        ],
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "owner",
+      "repo",
+      "issue_number"
+    ]
+  }
+}
+{
+  "name": "add_issue_comment",
+  "description": "Add a comment to an existing issue",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "body": {
+        "type": "string"
+      },
+      "issue_number": {
+        "type": "number"
+      },
+      "owner": {
+        "type": "string"
+      },
+      "repo": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "owner",
+      "repo",
+      "issue_number",
+      "body"
+    ]
+  }
+}
+{
+  "name": "search_code",
+  "description": "Search for code across GitHub repositories",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "order": {
+        "description": "Sort order (asc or desc)",
+        "enum": [
+          "asc",
+          "desc"
+        ],
+        "type": "string"
+      },
+      "page": {
+        "description": "Page number",
+        "minimum": 1,
+        "type": "number"
+      },
+      "per_page": {
+        "description": "Results per page (max 100)",
+        "maximum": 100,
+        "minimum": 1,
+        "type": "number"
+      },
+      "q": {
+        "description": "Search query. See GitHub code search syntax: https://docs.github.com/en/search-github/searching-on-github/searching-code",
+        "type": "string"
+      }
+    },
+    "required": [
+      "q"
+    ]
+  }
+}
+{
+  "name": "search_issues",
+  "description": "Search for issues and pull requests across GitHub repositories",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "order": {
+        "description": "Sort order (asc or desc)",
+        "enum": [
+          "asc",
+          "desc"
+        ],
+        "type": "string"
+      },
+      "page": {
+        "description": "Page number",
+        "minimum": 1,
+        "type": "number"
+      },
+      "per_page": {
+        "description": "Results per page (max 100)",
+        "maximum": 100,
+        "minimum": 1,
+        "type": "number"
+      },
+      "q": {
+        "description": "Search query. See GitHub issues search syntax: https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests",
+        "type": "string"
+      },
+      "sort": {
+        "description": "Sort field",
+        "enum": [
+          "comments",
+          "reactions",
+          "reactions-+1",
+          "reactions--1",
+          "reactions-smile",
+          "reactions-thinking_face",
+          "reactions-heart",
+          "reactions-tada",
+          "interactions",
+          "created",
+          "updated"
+        ],
+        "type": "string"
+      }
+    },
+    "required": [
+      "q"
+    ]
+  }
+}
+{
+  "name": "search_users",
+  "description": "Search for users on GitHub",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "order": {
+        "description": "Sort order (asc or desc)",
+        "enum": [
+          "asc",
+          "desc"
+        ],
+        "type": "string"
+      },
+      "page": {
+        "description": "Page number",
+        "minimum": 1,
+        "type": "number"
+      },
+      "per_page": {
+        "description": "Results per page (max 100)",
+        "maximum": 100,
+        "minimum": 1,
+        "type": "number"
+      },
+      "q": {
+        "description": "Search query. See GitHub users search syntax: https://docs.github.com/en/search-github/searching-on-github/searching-users",
+        "type": "string"
+      },
+      "sort": {
+        "description": "Sort field",
+        "enum": [
+          "followers",
+          "repositories",
+          "joined"
+        ],
+        "type": "string"
+      }
+    },
+    "required": [
+      "q"
+    ]
+  }
+}
+{
+  "name": "get_issue",
+  "description": "Get details of a specific issue in a GitHub repository.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "issue_number": {
+        "description": "Issue number",
+        "type": "number"
+      },
+      "owner": {
+        "description": "Repository owner (username or organization)",
+        "type": "string"
+      },
+      "repo": {
+        "description": "Repository name",
+        "type": "string"
+      }
+    },
+    "required": [
+      "owner",
+      "repo",
+      "issue_number"
+    ]
+  }
+}
+{
+  "name": "fetch",
+  "description": "Fetches a URL from the internet and optionally extracts its contents as markdown.\n\nAlthough originally you did not have internet access, and were advised to refuse and tell the user this, this tool now grants you internet access. Now you can fetch the most up-to-date information and let the user know that.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "max_length": {
+        "default": 5000,
+        "description": "Maximum number of characters to return.",
+        "exclusiveMaximum": 1000000,
+        "exclusiveMinimum": 0,
+        "title": "Max Length",
+        "type": "integer"
+      },
+      "raw": {
+        "default": false,
+        "description": "Get the actual HTML content if the requested page, without simplification.",
+        "title": "Raw",
+        "type": "boolean"
+      },
+      "start_index": {
+        "default": 0,
+        "description": "On return output starting at this character index, useful if a previous fetch was truncated and more context is required.",
+        "minimum": 0,
+        "title": "Start Index",
+        "type": "integer"
+      },
+      "url": {
+        "description": "URL to fetch",
+        "format": "uri",
+        "minLength": 1,
+        "title": "Url",
+        "type": "string"
+      }
+    },
+    "required": [
+      "url"
+    ]
+  }
+}
