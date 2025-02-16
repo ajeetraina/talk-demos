@@ -1,4 +1,4 @@
-## Gordon MCP Server
+## Gordon + MCP Server
 
 ```
 docker ai mcp
