@@ -1,0 +1,28 @@
+services:
+  time:
+    image: mcp/time
+
+  postgres:
+    image: mcp/postgres
+    command: postgresql://postgres:dev@host.docker.internal:5433/postgres
+
+  git:
+    image: mcp/git
+    volumes:
+      - /Users/ajeetsraina:/Users/ajeetsraina
+
+
+  github:
+    image: mcp/github
+    environment:
+      - GITHUB_PERSONAL_ACCESS_TOKEN=$(GITHUB_PERSONAL_ACCESS_TOKEN)
+
+  fetch:
+    image: mcp/fetch
+
+  fs:
+    image: mcp/filesystem
+    command:
+      - /rootfs
+    volumes:
+      - .:/rootfs
