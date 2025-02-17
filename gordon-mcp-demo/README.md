@@ -5,13 +5,40 @@
 
 <img width="1480" alt="image" src="https://github.com/user-attachments/assets/6a591498-c8ec-4dfc-8c7f-807dec77fde0" />
 
+## Greeting Gordon
+
+```
+how are you doing?
+```
+
+
 ## Listing all the containers
 
 
-Prompt #1
+### Prompt #1
+
 ```
 list all the containers running on my system
 ```
+
+<img width="1176" alt="image" src="https://github.com/user-attachments/assets/fb4592f9-08ec-4083-bd21-771fe830c207" />
+
+
+### Prompt #2
+
+```
+Clean up the exited container
+```
+
+### Prompt #3
+
+```
+which container is taking up lot of space
+```
+
+<img width="1164" alt="image" src="https://github.com/user-attachments/assets/8c6fb7d3-aa0c-4a9a-bf36-e099520a02ad" />
+
+### Prompt #4
 
 
 
@@ -22,15 +49,39 @@ list all the containers running on my system
 
 Assuming that you have cloned the repo that has `gordon-mcp.yml` file with the following content:
 
-
-
-
-
 ```
-docker ai mcp
+services:
+  time:
+    image: mcp/time
+
+  postgres:
+    image: mcp/postgres
+    command: postgresql://postgres:dev@host.docker.internal:5433/postgres
+
+  git:
+    image: mcp/git
+    volumes:
+      - /Users/ajeetsraina:/Users/ajeetsraina
+
+
+  github:
+    image: mcp/github
+    environment:
+      - GITHUB_PERSONAL_ACCESS_TOKEN=${GITHUB_PERSONAL_ACCESS_TOKEN}
+
+  fetch:
+    image: mcp/fetch
+
+  fs:
+    image: mcp/filesystem
+    command:
+      - /rootfs
+    volumes:
+      - .:/rootfs
 ```
 
-List of MCP servers
+## List all the MCP Tools
+
 
 ```
 docker ai mcp
@@ -62,7 +113,7 @@ Next, source the shell
 source ~/.zshrc
 ```
 
-## Prompt 1
+## Prompt
 
 ```
 $ docker ai can you fetch dockerlabs.collabnix.com and write the summary to a file tests.txt
