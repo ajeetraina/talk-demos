@@ -1,4 +1,30 @@
-## Gordon + MCP Server
+## Getting Started
+
+- Install Docker Desktop 4.38.+
+- Enable AI
+
+<img width="1480" alt="image" src="https://github.com/user-attachments/assets/6a591498-c8ec-4dfc-8c7f-807dec77fde0" />
+
+## Listing all the containers
+
+
+Prompt #1
+```
+list all the containers running on my system
+```
+
+
+
+
+
+
+## Gordon and MCP
+
+Assuming that you have cloned the repo that has `gordon-mcp.yml` file with the following content:
+
+
+
+
 
 ```
 docker ai mcp
