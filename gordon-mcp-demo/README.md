@@ -104,6 +104,47 @@ huge                                        latest                              
 
 You can see that Gordon optimised the size.
 
+## Optimisation using Multi-stage Build
+
+```
+docker ai can you optimise using Multi-stage build
+```
+
+It creates the following Dockerfile.
+
+```
+FROM node:21-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install --production
+
+COPY . .
+
+FROM node:21-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app /app
+
+EXPOSE 3000
+
+CMD ["node", "src/index.js"]
+```
+
+Let's build it with name "extra-small"
+
+```
+docker build -t extra-small .
+```
+
+```
+REPOSITORY                                  TAG                                        IMAGE ID       CREATED          SIZE
+extra-small                                 latest                                     41868a6e197f   3 minutes ago    235MB
+small                                       latest                                     052adc5729e8   18 minutes ago   377MB
+huge                                        latest                                     6bcd991ba3e2   41 minutes ago   1.83GB
+```
 
 
 
