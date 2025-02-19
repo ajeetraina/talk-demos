@@ -95,7 +95,7 @@ Let's rebuild it again with name "small"
 docker build -t small .
 ```
 
-````
+```
 docker images 
 REPOSITORY                                  TAG                                        IMAGE ID       CREATED          SIZE
 small                                       latest                                     052adc5729e8   7 minutes ago    377MB
