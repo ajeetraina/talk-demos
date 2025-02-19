@@ -218,6 +218,32 @@ source ~/.zshrc
 
 ## Prompt
 
+## Creating a new GitHub Repo
+
+```
+docker ai create a new github repo by name demo-test
+```
+
+
+```                                                                                                
+    • Calling create_repository ✔️                                                              
+                                                                                                
+  The GitHub repository named demo-test has been successfully created. You can access it here   
+  (https://github.com/ajeetraina/demo-test).                                                    
+
+```
+
+```
+docker ai create a README file with the following content "This is a demo project"
+```
+
+
+
+
+
+
+
+
 ```
 $ docker ai can you fetch dockerlabs.collabnix.com and write the summary to a file tests.txt
 ```
