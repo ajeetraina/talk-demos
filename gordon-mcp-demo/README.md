@@ -40,7 +40,69 @@ which container is taking up lot of space
 
 ### Prompt #4
 
+Optimising the Dockerfile
 
+## Clone the repo
+
+```
+https://github.com/ajeetraina/todo-list/
+cd todo-list/build
+```
+
+## Build the image with name "huge"
+
+```
+docker build -t huge .
+```
+
+Note the size of Docker image 1.8 GB
+
+Let's ask Gordon to optimise this Image
+
+
+## Prompt
+
+```
+docker ai please optimise this Docker image
+```
+
+it creates a new Dockerfile file and keeps Dockerfile.bak old too.
+
+```
+ diff Dockerfile Dockerfile
+1c1
+< FROM node:21-alpine
+---
+> FROM node:21
+4d3
+< 
+6,7c5
+< RUN npm install --production
+< 
+---
+> RUN npm install
+9d6
+< 
+11d7
+< 
+12a9
+>
+```
+
+Let's rebuild it again with name "small"
+
+```
+docker build -t small .
+```
+
+````
+docker images 
+REPOSITORY                                  TAG                                        IMAGE ID       CREATED          SIZE
+small                                       latest                                     052adc5729e8   7 minutes ago    377MB
+huge                                        latest                                     6bcd991ba3e2   30 minutes ago   1.83GB
+```
+
+You can see that Gordon optimised the size.
 
 
 
