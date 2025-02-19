@@ -38,9 +38,9 @@ which container is taking up lot of space
 
 <img width="1164" alt="image" src="https://github.com/user-attachments/assets/8c6fb7d3-aa0c-4a9a-bf36-e099520a02ad" />
 
-### Prompt #4
+### Prompt #4: Dockerfile Optimisation
 
-Optimising the Dockerfile
+
 
 ## Clone the repo
 
