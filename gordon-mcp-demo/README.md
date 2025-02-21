@@ -18,25 +18,21 @@ how are you doing?
 ### Prompt #1
 
 ```
-list all the containers running on my system
+list all the containers running on my system in a tabular format
 ```
 
-<img width="1176" alt="image" src="https://github.com/user-attachments/assets/fb4592f9-08ec-4083-bd21-771fe830c207" />
+<img width="1080" alt="image" src="https://github.com/user-attachments/assets/66a26269-026a-45e9-9481-e08ae4f2926a" />
 
+
+```
 
 ### Prompt #2
 
 ```
-Clean up the exited container
+list all the containers running on my system in a tabular format and highlight ones that is consuming maximum space
 ```
 
-### Prompt #3
-
-```
-which container is taking up lot of space
-```
-
-<img width="1164" alt="image" src="https://github.com/user-attachments/assets/8c6fb7d3-aa0c-4a9a-bf36-e099520a02ad" />
+<img width="1162" alt="image" src="https://github.com/user-attachments/assets/0fc095f5-1612-4500-a510-73bf74f717f8" />
 
 ### Prompt #4: Dockerfile Optimisation
 
