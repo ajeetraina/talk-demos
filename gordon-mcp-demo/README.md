@@ -24,19 +24,16 @@ list all the containers running on my system in a tabular format
 <img width="1080" alt="image" src="https://github.com/user-attachments/assets/66a26269-026a-45e9-9481-e08ae4f2926a" />
 
 
-```
 
-### Prompt #2
+## Prompt #2
 
 ```
-list all the containers running on my system in a tabular format and highlight ones that is consuming maximum space
+docker ai list all the containers running on my system in a tabular format and highlight ones that is consuming maximum space
 ```
 
 <img width="1162" alt="image" src="https://github.com/user-attachments/assets/0fc095f5-1612-4500-a510-73bf74f717f8" />
 
-### Prompt #4: Dockerfile Optimisation
-
-
+##  Dockerfile Optimisation
 
 ## Clone the repo
 
@@ -63,6 +60,13 @@ docker ai please optimise this Docker image
 ```
 
 it creates a new Dockerfile file and keeps Dockerfile.bak old too.
+
+ docker ai can you optimise my Dockerfile
+                                                                                             
+> The RUN command for npm install now includes --mount=type=cache,target=/root/.npm. This uses Docker's BuildKit   
+>   feature to cache the npm dependencies in the /root/.npm directory.                                                       
+                                                                                                                                                                        
+                                                                                                                           
 
 ```
  diff Dockerfile Dockerfile
