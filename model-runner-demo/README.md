@@ -1,4 +1,4 @@
-## Model Runner Demo
+# Model Runner Demo
 
 
 ## Demo #1: Introducing docker model command
