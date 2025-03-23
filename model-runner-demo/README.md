@@ -46,7 +46,7 @@ docker model pull ignaciolopezluna020/llama3.2:1B
 
 2. Start the application using Docker Compose:
    ```bash
-   docker compose up -d -build
+   docker compose up -d --build
    ```
 
 3. Access the frontend at [http://localhost:3000](http://localhost:3000)
