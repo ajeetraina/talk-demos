@@ -39,3 +39,9 @@ kubectl get po -A
 kubectl port-forward svc/vote 5000:8080
 ```
 
+- Cleaning up Pods and other via namespace
+
+```
+kubectl delete ns example-voting-app
+```
+
