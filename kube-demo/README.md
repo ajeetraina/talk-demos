@@ -58,8 +58,8 @@ nginx-deployment-96b9d695-tf7nb   1/1     Running   0          11s   10.244.1.2 
 
 ```
 kubectl apply -f scale-multicontainer-pods.yaml
-
 ```
+
 kubectl get po -o wide
 NAME                                   READY   STATUS              RESTARTS   AGE     IP           NODE              NOMINATED NODE   READINESS GATES
 nginx-deployment-96b9d695-dmrs5        1/1     Running             0          2m58s   10.244.1.3   desktop-worker    <none>           <none>
