@@ -75,7 +75,7 @@ webserver-deployment-8d544b76b-r9wpr   0/2     ContainerCreating   0          4s
 ## Expose your Nginx deployment
 
 ```
-kubectl apply -f svc-pod.yaml
+kubectl apply -f pod-svc.yaml
 ```
 
 ```
