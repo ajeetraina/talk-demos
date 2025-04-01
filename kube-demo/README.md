@@ -53,7 +53,22 @@ nginx-deployment-96b9d695-drlxp   1/1     Running   0          11s   10.244.2.2 
 nginx-deployment-96b9d695-tf7nb   1/1     Running   0          11s   10.244.1.2   desktop-worker    <none>           <none>
 ```
 
+## Scale Multicontainer Pods
 
+
+```
+kubectl apply -f scale-multicontainer-pods.yaml
+
+```
+kubectl get po -o wide
+NAME                                   READY   STATUS              RESTARTS   AGE     IP           NODE              NOMINATED NODE   READINESS GATES
+nginx-deployment-96b9d695-dmrs5        1/1     Running             0          2m58s   10.244.1.3   desktop-worker    <none>           <none>
+nginx-deployment-96b9d695-drlxp        1/1     Running             0          2m58s   10.244.2.2   desktop-worker2   <none>           <none>
+nginx-deployment-96b9d695-tf7nb        1/1     Running             0          2m58s   10.244.1.2   desktop-worker    <none>           <none>
+webserver-deployment-8d544b76b-454wb   0/2     ContainerCreating   0          4s      <none>       desktop-worker2   <none>           <none>
+webserver-deployment-8d544b76b-56frq   0/2     ContainerCreating   0          4s      <none>       desktop-worker2   <none>           <none>
+webserver-deployment-8d544b76b-r9wpr   0/2     ContainerCreating   0          4s      <none>       desktop-worker    <none>           <none>
+```
 
 
 
