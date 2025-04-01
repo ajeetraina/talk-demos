@@ -39,7 +39,13 @@ nginx-pod   1/1     Running   0          8m18s   10.244.0.5   desktop-control-pl
 webserver   2/2     Running   0          79s     10.244.0.6   desktop-control-plane   <none>           <none>
 ```
 
-## Scaling Pods
+## Scaling the deployment
+
+```
+kubectl scale deployment nginx-deployment --replicas=3
+```
+
+OR
 
 ```
 kubectl apply -f scale-pods.yaml
