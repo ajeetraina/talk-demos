@@ -122,6 +122,12 @@ deployment.apps/nginx-deployment       3/3     3            3           6m33s   
 deployment.apps/webserver-deployment   3/3     3            3           3m39s   webserver,webwatcher   nginx:latest,afakharany/watcher:latest   app=webserver
 ```
 
+## Removing all the K8s resources
+
+```
+kubectl delete -f .
+```
+
 
 
 
