@@ -1,4 +1,20 @@
 
+## Demo
+
+- Setup Multi-node K8s cluster
+- Deploy a Nginx Pod
+- Scale the deployment
+- Deploy multi-container app
+- Monitor your deployments
+- Check the Pod distribution
+
+## Setup Multi-node K8s cluster
+
+- Install Docker Desktop
+- Enable Kubernetes
+- Enable Kind cluster
+- Setup 3 Node K8s Cluster
+
 
 
 ## Demonstrating Pod
@@ -84,6 +100,9 @@ webserver-deployment-8d544b76b-r9wpr   0/2     ContainerCreating   0          4s
 kubectl apply -f pod-svc.yaml
 ```
 
+## Checking pod distribution
+
+
 ```
 kubectl get po,svc,deploy -o wide
 NAME                                       READY   STATUS    RESTARTS   AGE     IP           NODE              NOMINATED NODE   READINESS GATES
@@ -102,6 +121,9 @@ NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE     
 deployment.apps/nginx-deployment       3/3     3            3           6m33s   nginx                  nginx:latest                             app=nginx
 deployment.apps/webserver-deployment   3/3     3            3           3m39s   webserver,webwatcher   nginx:latest,afakharany/watcher:latest   app=webserver
 ```
+
+
+
 
 
 
