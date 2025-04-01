@@ -26,6 +26,21 @@ kubectl port-forward nginx-pod 8080:80
 curl localhost:8080
 ```
 
+## Running Multiple Pods
+
+```
+kubectl apply -f multiple-pods.yaml
+```
+
+```
+kubectl get po -o wide
+NAME        READY   STATUS    RESTARTS   AGE     IP           NODE                    NOMINATED NODE   READINESS GATES
+nginx-pod   1/1     Running   0          8m18s   10.244.0.5   desktop-control-plane   <none>           <none>
+webserver   2/2     Running   0          79s     10.244.0.6   desktop-control-plane   <none>           <none>
+```
+
+
+
 
 
 
