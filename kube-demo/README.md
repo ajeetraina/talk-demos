@@ -133,6 +133,23 @@ kubectl delete -f .
 
 
 
+## Demo: Voting app using K8s-specification
+
+```
+kubectl apply -f k8s-specifications/
+```
+
+
+```
+kubectl port-forward svc/vote 5000:8080
+```
+
+Access it via 5000
+
+![image](https://github.com/user-attachments/assets/5c80024e-b8a1-44da-a04e-4a82100cdbb3)
+
+
+
 
 
 
