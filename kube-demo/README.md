@@ -77,7 +77,6 @@ OR
 kubectl scale deployment nginx-deployment --replicas=3
 ```
 
-OR
 
 ## Scale Multicontainer Pods
 
