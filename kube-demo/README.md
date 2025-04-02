@@ -57,11 +57,6 @@ webserver   2/2     Running   0          79s     10.244.0.6   desktop-control-pl
 
 ## Scaling the deployment
 
-```
-kubectl scale deployment nginx-deployment --replicas=3
-```
-
-OR
 
 ```
 kubectl apply -f scale-pods.yaml
@@ -74,6 +69,15 @@ nginx-deployment-96b9d695-dmrs5   1/1     Running   0          11s   10.244.1.3 
 nginx-deployment-96b9d695-drlxp   1/1     Running   0          11s   10.244.2.2   desktop-worker2   <none>           <none>
 nginx-deployment-96b9d695-tf7nb   1/1     Running   0          11s   10.244.1.2   desktop-worker    <none>           <none>
 ```
+
+OR
+
+
+```
+kubectl scale deployment nginx-deployment --replicas=3
+```
+
+OR
 
 ## Scale Multicontainer Pods
 
