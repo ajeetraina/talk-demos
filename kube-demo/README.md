@@ -142,11 +142,15 @@ kubectl apply -f k8s-specifications/
 
 ```
 kubectl port-forward svc/vote 5000:8080
+kubectl port-forward svc/result 5001:8081
 ```
 
-Access it via 5000
+Access it via 5000 and 5001
 
 ![image](https://github.com/user-attachments/assets/5c80024e-b8a1-44da-a04e-4a82100cdbb3)
+
+<img width="697" alt="image" src="https://github.com/user-attachments/assets/07df5725-6389-4876-94af-a94b98fccde1" />
+
 
 
 
