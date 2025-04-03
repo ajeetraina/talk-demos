@@ -4,15 +4,23 @@
 
 
 ```
-git clone https://github.com/ajeetraina/talk-demos
-cd talk-demos
+git clone https://github.com/ajeetraina/k8s-simple-web
+cd  k8s-simple-web
 ```
 
-## Bring up service containers
+## Using Compose Brdige
 
 ```
-docker compose up -d
+compose-bridge convert -f docker-compose.yml
 ```
+
+## Fix the issue
+
+```
+kubectl apply -f compose-bridge-fix.yaml
+```
+
+
 
 
 
