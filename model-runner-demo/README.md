@@ -8,32 +8,29 @@
 - Download a Model from Docker Hub
 
 ```
-docker model pull ignaciolopezluna020/llama3.2:1B
+docker model pull ai/llama3.2:1B-Q8_0
 ```
 
 - Run a Model
 
 ```
-docker model run ignaciolopezluna020/llama3.2:1B "Hello, how are you doing?"
+docker model run ai/llama3.2:1B-Q8_0 "Hello, how are you doing?"
 ```
 
 ## Demo #2: Building a ChatBot Application (using Internal DNS)
 
 ```
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│   Frontend  │ >>> │   Backend   │ >>> │    Ollama   │
+│   Frontend  │ >>> │   Backend   │ >>> │ Model Runner│
 │  (React/TS) │     │    (Go)     │     │  (Llama 3.2)│
 └─────────────┘     └─────────────┘     └─────────────┘
-      :3000              :8080              :11434
+      :3000              :8080              :12434
 ```
 
 - Install Docker Desktop
 - Enable Model Runner (don't select TCP mode)
-- Download a Model from Docker Hub
 
-```
-docker model pull ignaciolopezluna020/llama3.2:1B
-```
+
 
 ##### Quick Start
 
