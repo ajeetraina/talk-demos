@@ -22,7 +22,7 @@ git clone https://github.com/ajeetraina/genai-app-demo
 - Bring up Compose Services
 
 ```
-docker compose up -d
+docker compose up -d --build
 ```
 
 - Access the app
