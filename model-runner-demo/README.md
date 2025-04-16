@@ -43,7 +43,7 @@ docker model run ai/llama3.2:1B-Q8_0 "Hello, how are you doing?"
 
 2. Start the application using Docker Compose:
    ```bash
-   docker compose up -d --build
+   docker compose up -d 
    ```
 
 3. Access the frontend at [http://localhost:3000](http://localhost:3000)
