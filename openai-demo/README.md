@@ -1,3 +1,8 @@
+
+## Demo for OpenAI 
+
+Export the OpenAI Key from https://gist.github.com/ajeetraina/b3608bc6b4c12ba4fd5e8f1395f05f3a
+
 ```
 export OPENAI_API_KEY=sk-proj-XXX
 ```
@@ -61,17 +66,18 @@ curl https://api.openai.com/v1/chat/completions \
 ```
 
 
-I can see you've successfully made the API call to OpenAI's Chat Completions endpoint with GPT-4o. The response shows:
+Congrats! You've successfully made the API call to OpenAI's Chat Completions endpoint with GPT-4o. The response shows:
 
-You received a standard greeting response: "Hello! How can I assist you today?"
-The model used was gpt-4o-2024-08-06
-Token usage breakdown:
+- You received a standard greeting response: "Hello! How can I assist you today?"
+- The model used was gpt-4o-2024-08-06
+- Token usage breakdown:
 
-19 prompt tokens
-10 completion tokens
-29 total tokens
+   - 19 prompt tokens
+   - 10 completion tokens
+   - 29 total tokens
 
 
 The request completed normally (finish_reason: "stop")
 
-This is exactly what you'd expect from a successful API call. The JSON structure contains all the standard fields in an OpenAI completion response, including the unique completion ID, usage statistics, and service tier information.
+This is exactly what you'd expect from a successful API call. 
+The JSON structure contains all the standard fields in an OpenAI completion response, including the unique completion ID, usage statistics, and service tier information.
