@@ -89,6 +89,32 @@ The collection of messages represents the full conversation up to the point. And
 
 The system or developer messages provide the instructions on how the LLM should operate, its rules, etc. There's typically only one of these.
 User messages are those that contain the end user's prompts, data, or additional context
-Assistant messages are messages from the LLM
+Assistant messages are messages from the LLM.
+
+
+Try this:
+
+
+```
+curl https://api.openai.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -d '{
+    "model": "gpt-4o",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Explain Docker in simple terms"
+      }
+    ]
+  }'
+```
+
+
+
 Tool messages pass along information from tools (more to come on that!)
 
