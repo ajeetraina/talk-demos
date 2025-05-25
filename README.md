@@ -125,6 +125,25 @@ CREATE TABLE products (
 );
 ```
 
+You can also query:
+
+```
+psql -d catalog -U postgres -W -c "\dt"
+Password: 
+          List of relations
+ Schema |   Name   | Type  |  Owner   
+--------+----------+-------+----------
+ public | products | table | postgres
+(1 row)
+```
+
+To see the structure of the product
+
+```
+psql -d catalog -U postgres -w -c "\d products"
+```
+
+
 ## Query the list of tables
 
 ```
