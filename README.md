@@ -27,6 +27,28 @@ The above command includes three flags:
 - -U - specifies the name of the user to connect as
 - -W - forces psql to ask for the user password before connecting to the database
 
+
+You can also query:
+
+```
+psql -d catalog -U postgres -W -c "\dt"
+Password: 
+          List of relations
+ Schema |   Name   | Type  |  Owner   
+--------+----------+-------+----------
+ public | products | table | postgres
+(1 row)
+```
+
+To see the structure of the product
+
+```
+psql -d catalog -U postgres -w -c "\d products"
+```
+
+
+
+
 ## Listing all the databases - \l
 
 ```
@@ -125,23 +147,6 @@ CREATE TABLE products (
 );
 ```
 
-You can also query:
-
-```
-psql -d catalog -U postgres -W -c "\dt"
-Password: 
-          List of relations
- Schema |   Name   | Type  |  Owner   
---------+----------+-------+----------
- public | products | table | postgres
-(1 row)
-```
-
-To see the structure of the product
-
-```
-psql -d catalog -U postgres -w -c "\d products"
-```
 
 
 ## Query the list of tables
