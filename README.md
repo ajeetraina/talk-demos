@@ -40,10 +40,10 @@ Password:
 (1 row)
 ```
 
-To see the structure of the product
+To see the items in the database
 
 ```
-psql -d catalog -U postgres -w -c "\d products"
+psql -d catalog -U postgres -w -c "SELECT * FROM products;"
 ```
 
 
