@@ -91,6 +91,8 @@ The system or developer messages provide the instructions on how the LLM should 
 User messages are those that contain the end user's prompts, data, or additional context
 Assistant messages are messages from the LLM.
 
+Tool messages pass along information from tools (more to come on that!)
+
 
 Try this:
 
@@ -116,5 +118,4 @@ curl https://api.openai.com/v1/chat/completions \
 
 
 
-Tool messages pass along information from tools (more to come on that!)
 
