@@ -7,7 +7,7 @@
         "-i", 
         "--rm", 
         "mcp/postgres", 
-        "postgresql://postgres:dev@host.docker.internal:5433/postgres"
+        "postgresql://postgres:postgres@host.docker.internal:5432/cayalog"
       ]
     }
   }
