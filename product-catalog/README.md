@@ -115,3 +115,10 @@ Try adding new products and see UPC code gets reflected.
 
 <img width="1221" alt="image" src="https://github.com/user-attachments/assets/d0951acd-0f48-4cb6-b889-4d26aba9886f" />
 
+
+## Postgres URL
+
+```
+postgresql://postgres:postgres@host.docker.internal:5432/catalog
+```
+
