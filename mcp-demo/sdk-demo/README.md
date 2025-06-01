@@ -106,6 +106,7 @@ You can type this JSON-RPC message (press Enter after pasting):
 
 ## Method 2: Test the time tool
 
+```
 {"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": "get-current-time", "arguments": {"timezone": "America/New_York"}}}
 ```
 
