@@ -85,8 +85,30 @@ Since this uses stdio transport, you can test it by:
 
 ```
 node time-server.js
+```
+
+Great! Your MCP server is now running successfully. 
+Since there's no output shown, that means it's working correctly and waiting for MCP protocol messages on stdin.
+
+## Method 1: Test with a simple message
+
+You can type this JSON-RPC message (press Enter after pasting):
+
+```
 {"jsonrpc": "2.0", "id": 1, "method": "tools/list"}
+```
+
+## Result
+
+```
 {"result":{"tools":[{"name":"get-current-time","description":"Get the current time for a requested timezone","inputSchema":{"type":"object","properties":{"timezone":{"type":"string","description":"The requested timezone in IANA format"}},"required":["timezone"],"additionalProperties":false,"$schema":"http://json-schema.org/draft-07/schema#"}}]},"jsonrpc":"2.0","id":1}
+```
+
+## Method 2: Test the time tool
+
 {"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": "get-current-time", "arguments": {"timezone": "America/New_York"}}}
+```
+
+```
 {"result":{"content":[{"type":"text","text":"5/31/2025, 10:29:05 PM"}]},"jsonrpc":"2.0","id":2}
 ```
