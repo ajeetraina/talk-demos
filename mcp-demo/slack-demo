@@ -1,0 +1,10 @@
+## Prereq
+
+- Install Docker desktop
+- Install VS Code
+- Enable Slack MCP Server
+- Enable Claude Desktop
+
+## Add Slack tools to list out all the users
+
+Prompt: List of all the users in the Slack with their timezone
