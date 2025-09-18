@@ -26,7 +26,7 @@ It will pick up GPT-5-mini by default if you've provided OpenAI API Key
 > Cafe management system
 ```
 
-
+It creates [this](https://github.com/ajeetraina/talk-demos/blob/main/cagent/cafe_management_system.yaml) file
 
 
 
