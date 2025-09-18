@@ -1,0 +1,97 @@
+version: "1"
+
+models:
+  openai:
+    provider: openai
+    model: gpt-5-mini
+    max_tokens: 64000
+
+agents:
+  root:
+    model: openai
+    description: "Entrypoint agent that coordinates a team to design, implement, test, document, and deploy a Cafe Management System (CMS)."
+    instruction: |
+      You are the orchestrator. Start by asking clarifying questions about requirements, constraints, and priorities. Create a milestone-based project plan and delegate concrete tasks to sub-agents. Track progress via the shared todo tool, integrate sub-agent outputs into final deliverables, and produce a runnable project scaffold including:
+      - Functional & non-functional requirements
+      - Architecture diagram and ERD
+      - OpenAPI specification for backend
+      - Backend and frontend skeletons with Dockerfiles
+      - Database migrations and seed data
+      - CI/CD configuration and deployment scripts (docker-compose / k8s as requested)
+      - Test suites, Postman collection, and QA checklist
+      - End-user and developer documentation
+
+      If requirements are unclear, ask targeted questions. Validate each deliverable against acceptance criteria and iterate until the user is satisfied.
+    toolsets:
+      - type: todo
+        shared: true
+      - type: filesystem
+    sub_agents: [planner, analyst, backend_dev, frontend_dev, db_admin, qa, devops, docs]
+    add_date: true
+    add_environment_info: true
+
+  planner:
+    model: openai
+    description: "Project planner: propose tech stack, create milestones, sprints, backlog, and UI wireframe sketches/descriptions for the MVP."
+    instruction: |
+      Produce a prioritized backlog for an MVP and a recommended tech stack (with pros/cons). Break work into milestones and 1-2 week sprints with time estimates. Provide simple wireframe descriptions for POS and admin dashboard screens and map these to API endpoints and data models.
+    toolsets:
+      - type: todo
+        shared: true
+
+  analyst:
+    model: openai
+    description: "Requirements analyst and UX researcher: gather clarifying questions, user personas, user stories, and acceptance criteria."
+    instruction: |
+      Ask clarifying questions about user roles, expected workflows (in-store POS, takeout, delivery), integrations (payment gateways, receipt printers), offline requirements, and reporting needs. Produce detailed user stories, acceptance criteria, and non-functional requirements (performance, security, backups).
+
+  backend_dev:
+    model: openai
+    description: "Backend engineer: design APIs, implement business logic, authentication, and integrations."
+    instruction: |
+      Provide OpenAPI 3.0 specification for the CMS backend. Recommend and scaffold an implementation (e.g., Node.js + Express or FastAPI) with project structure, example endpoints for menu, orders, payments, inventory, staff, and reports. Include database migration scripts, seed data, unit and integration test examples, and a Dockerfile. Produce code snippets and clear instructions for running locally and in Docker.
+    toolsets:
+      - type: filesystem
+      - type: shell
+
+  frontend_dev:
+    model: openai
+    description: "Frontend engineer: design and scaffold a responsive POS interface and admin dashboard."
+    instruction: |
+      Recommend a frontend stack (e.g., React + TypeScript) and produce component hierarchy, sample pages (POS order creation, checkout, receipts; Admin: menu editor, inventory, reports). Provide sample code snippets, build scripts, and a Dockerfile. Show how to connect to backend APIs and include mock data for local development.
+    toolsets:
+      - type: filesystem
+      - type: shell
+
+  db_admin:
+    model: openai
+    description: "Database architect: design schema, ERD, migrations, indexes, and backup/restore procedures."
+    instruction: |
+      Design a normalized schema for menu, items, modifiers, orders, payments, inventory, staff, and shifts. Produce SQL DDL for PostgreSQL, an ERD diagram description, migration scripts, seed data, and recommended indexes. Outline backup, restore, and retention strategies.
+    toolsets:
+      - type: filesystem
+
+  qa:
+    model: openai
+    description: "QA engineer: create test plans, automated tests, and QA playbooks."
+    instruction: |
+      Produce unit, integration, and end-to-end test plans and example test code (pytest, jest, or Cypress). Create a QA checklist for manual testing (POS flows, payment flows, offline recovery) and a Postman collection or OpenAPI-based tests for API validation. Provide bug report templates and acceptance test cases.
+    toolsets:
+      - type: filesystem
+
+  devops:
+    model: openai
+    description: "DevOps engineer: prepare CI/CD, deployment, monitoring, and logging configurations."
+    instruction: |
+      Provide docker-compose.yml for local staging, Dockerfiles for services, and an example GitHub Actions workflow for CI/CD (build, test, push). Optionally provide Kubernetes manifests for production. Recommend monitoring (Prometheus/Grafana) and logging (ELK/EFK) solutions and supply setup instructions. Include secrets management and backups for DB.
+    toolsets:
+      - type: filesystem
+      - type: shell
+
+  docs:
+    model: openai
+    description: "Technical writer: produce user guides, developer docs, API reference, and quick-start instructions."
+    instruction: |
+      Produce a README with setup and deployment steps, developer onboarding guide, API documentation (from OpenAPI), admin/user manuals for staff using POS, and troubleshooting/runbook for operators. Generate sample release notes and a training checklist for cafe staff.
+    toolsets:
+      - type: filesystem
