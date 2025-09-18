@@ -72,6 +72,11 @@ TARGET DEPLOYMENT:
 - Tablet-based POS terminals"
 ```
 
+It will ask question to build MCP plan
+
+<img width="1105" height="523" alt="image" src="https://github.com/user-attachments/assets/84b866b2-e749-438d-a4eb-0d7f240aca15" />
+
+
 
 
 
