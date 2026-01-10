@@ -66,3 +66,12 @@ docker sandbox inspect 275d94b417bf
 The `docker/sandbox-templates:claude-code` image includes Claude Code with automatic credential management, plus development tools (Docker CLI, GitHub CLI, Node.js, Go, Python 3, Git, ripgrep, jq). It runs as a non-root agent user with sudo access and launches Claude with --dangerously-skip-permissions by default.
 
 
+Since Docker enforces one sandbox per workspace, the same sandbox is reused each time you run docker sandbox run <agent> in a given directory. To create a fresh sandbox, you need to remove the existing one first:
+
+```
+docker sandbox ls  # Find the sandbox ID
+docker sandbox rm <sandbox-id>
+docker sandbox run <agent>  # Creates a new sandbox
+```
+
+
