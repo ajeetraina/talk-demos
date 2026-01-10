@@ -63,4 +63,6 @@ docker sandbox inspect 275d94b417bf
 ]
 ```
 
+The `docker/sandbox-templates:claude-code` image includes Claude Code with automatic credential management, plus development tools (Docker CLI, GitHub CLI, Node.js, Go, Python 3, Git, ripgrep, jq). It runs as a non-root agent user with sudo access and launches Claude with --dangerously-skip-permissions by default.
+
 
