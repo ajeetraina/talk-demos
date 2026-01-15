@@ -21,6 +21,7 @@
   - [Step 3: Re-enter and Verify](#step-3-re-enter-and-verify)
 - [Test Environment Variables](#test-8-environment-variables)
 - [Test Docker Socket Access](#test-9-docker-socket-access)
+- [Real-World Demo: Playwright Browser Testing](#test-10-real-world-demo---playwright-browser-testing)
 - [Test Summary](#test-summary)
 - [Key Takeaways](#key-takeaways)
 
@@ -479,6 +480,100 @@ The agent can now:
 
 ---
 
+## Test 10: Real-World Demo - Playwright Browser Testing
+
+This demonstrates a practical use case: running browser tests in the sandbox without polluting your host system.
+
+### Step 1: Create Project Directory
+
+```bash
+# On host
+mkdir -p ~/meetup-jan/playwright-demo
+cd ~/meetup-jan/playwright-demo
+
+# Remove any existing sandbox
+docker sandbox ls
+docker sandbox rm <sandbox-id-if-exists>
+
+# Start fresh sandbox
+docker sandbox run claude
+```
+
+### Step 2: Create and Run Playwright Test
+
+Inside the sandbox, ask Claude to create a Playwright test:
+
+```
+Create a simple Playwright test that:
+1. Goes to https://collabnix.com
+2. Takes a screenshot
+3. Verifies the page title contains "Collabnix"
+```
+
+Claude will:
+- Initialize the project with `npm init`
+- Install Playwright and browsers (~500MB)
+- Create the test file
+- Run the test
+
+**Result:**
+
+```
+● Bash(npx playwright test) timeout: 1m 0s
+  ⎿  Running 1 test using 1 worker
+       ✓  1 tests/collabnix.spec.ts:3:5 › Collabnix homepage (5.2s)
+
+● Bash(ls -la collabnix-screenshot.png)
+  ⎿  -rw-r--r-- 1 agent agent 666902 Jan 15 18:03 collabnix-screenshot.png
+
+● Done. The Playwright test has been created and executed successfully.
+
+  playwright-demo/
+  ├── package.json
+  ├── playwright.config.ts
+  ├── tests/
+  │   └── collabnix.spec.ts
+  └── collabnix-screenshot.png  (generated)
+
+  Result: 1 test passed in 6.3s
+```
+
+### Step 3: Verify Isolation on Host
+
+Exit the sandbox and check your host:
+
+```bash
+exit
+```
+
+**Check what's on your host:**
+
+```bash
+# Screenshot IS in your project (shared via mount) ✅
+ls -la ~/meetup-jan/playwright-demo/collabnix-screenshot.png
+
+# Playwright browsers are NOT on your host ✅
+ls ~/.cache/ms-playwright/
+```
+
+**Result:**
+
+| Location | On Host? | Why? |
+|----------|----------|------|
+| `collabnix-screenshot.png` | ✅ Yes | Project folder is mounted |
+| `node_modules/` | ✅ Yes | Project folder is mounted |
+| `~/.cache/ms-playwright/` (500MB browsers) | ❌ No | Isolated in sandbox |
+| `~/.npm/` cache | ❌ No | Isolated in sandbox |
+
+✅ **This is the power of Docker Sandboxes!**
+
+- Your project files are accessible and shared
+- Heavy dependencies (browsers, caches) stay in the sandbox
+- Your host system stays clean
+- Re-enter the sandbox later and Playwright is still installed
+
+---
+
 ## Test Summary
 
 | Feature | Expected | Result |
@@ -491,6 +586,7 @@ The agent can now:
 | 💾 State persistence | Persists | ✅ Working |
 | 🔧 Environment variables | Available | ✅ Working |
 | 🐳 Docker socket access | With sudo | ✅ Working |
+| 🎭 Playwright isolation | Browsers isolated | ✅ Working |
 | 🪪 Git identity injection | Auto-injected | ⚠️ Not working |
 
 ---
