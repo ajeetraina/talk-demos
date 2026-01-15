@@ -191,3 +191,40 @@ Bash(ls -la ~/)                                                                 
 <img width="975" height="535" alt="image" src="https://github.com/user-attachments/assets/6f55e433-3b80-4617-bee6-3a66d425c3c5" />
 
 
+This is the key insight! 🎯
+
+The sandbox's home (/home/agent/) is completely separate from your real home (/Users/ajeetsraina/).
+
+Notice the auto-injected .gitconfig — that's Docker Sandboxes giving Claude your Git identity so commits are attributed to you, without exposing your real home.
+
+### Test 6: Verify Git identity injection
+
+```
+cat ~/.gitconfig
+```
+
+This should show your name/email from your host machine.
+
+```
+ Read(~/.gitconfig)
+  ⎿  Read 3 lines
+
+● [safe]
+      directory = /Users/ajeetsraina/meetup-jan/sandbox-testing
+
+  The gitconfig just has a safe.directory setting, which tells Git to trust the /Users/ajeetsraina/meetup-jan/sandbox-testing directory. This is commonly needed when the directory
+  ownership differs from the current user (as in containerized environments).
+```
+
+Interesting! It only shows safe.directory. Let's check if your Git identity is available:
+
+### Test 6b: Check full Git config
+
+```
+git config --global --list
+```
+
+This will show if your name and email are available for commits.
+
+
+
