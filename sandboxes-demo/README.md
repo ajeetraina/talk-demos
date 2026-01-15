@@ -156,5 +156,38 @@ rm -rf ~/
 
 <img width="906" height="243" alt="image" src="https://github.com/user-attachments/assets/725da9ce-3935-40e4-9e5e-9e669f110233" />
 
+### Test 5b: What's actually in the home directory inside the sandbox?
+
+
+```
+Bash(ls -la ~/)                                                                                                                                                                           ⎿  total 64
+     drwxr-xr-x 1 agent agent 4096 Jan 15 16:23 .
+     drwxr-xr-x 1 root  root  4096 Jan 10 00:23 ..
+     … +9 lines (ctrl+o to expand)
+● The home directory contains:
+  ┌──────────────┬──────┬─────────────────────┐
+  │     Item     │ Type │     Description     │
+  ├──────────────┼──────┼─────────────────────┤
+  │ .cache/      │ dir  │ Cache files         │
+  ├──────────────┼──────┼─────────────────────┤
+  │ .claude/     │ dir  │ Claude Code config  │
+  ├──────────────┼──────┼─────────────────────┤
+  │ .claude.json │ file │ Claude settings     │
+  ├──────────────┼──────┼─────────────────────┤
+  │ .docker/     │ dir  │ Docker config       │
+  ├──────────────┼──────┼─────────────────────┤
+  │ .gitconfig   │ file │ Git configuration   │
+  ├──────────────┼──────┼─────────────────────┤
+  │ .local/      │ dir  │ Local user data     │
+  ├──────────────┼──────┼─────────────────────┤
+  │ .npm/        │ dir  │ npm cache           │
+  ├──────────────┼──────┼─────────────────────┤
+  │ workspace/   │ dir  │ Workspace directory │
+  └──────────────┴──────┴─────────────────────┘
+  This is a minimal sandboxed environment. Want me to explore any of these directories?
+```
+
+
+<img width="975" height="535" alt="image" src="https://github.com/user-attachments/assets/6f55e433-3b80-4617-bee6-3a66d425c3c5" />
 
 
