@@ -276,6 +276,7 @@ cowsay "I persisted!"
 ● Done! The cow has spoken.
 ```
 
+<img width="757" height="396" alt="image" src="https://github.com/user-attachments/assets/898db7cb-39f1-4a2c-80e7-1d7299ab1957" />
 
 
 
