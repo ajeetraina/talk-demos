@@ -128,7 +128,7 @@ The sandbox is "secure by default" — you don't have to think about what to exc
 
 ```
 ls -la /Users/ajeetsraina/meetup-jan/sandbox-testing/
-``
+```
 
 Result:
 
