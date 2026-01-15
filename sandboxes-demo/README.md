@@ -74,4 +74,50 @@ docker sandbox rm <sandbox-id>
 docker sandbox run <agent>  # Creates a new sandbox
 ```
 
+## Verify the isolation
+
+
+Test 1: Check if SSH directory exists
+
+```
+ls -la ~/.ssh/
+```
+
+
+Result: 
+
+```
+Bash(ls -la ~/.ssh/)
+  ⎿  Error: Exit code 2
+     ls: cannot access '/home/agent/.ssh/': No such file or directory
+```
+
+That's the sandbox working! 🔒
+Notice the path: /home/agent/.ssh/ — the sandbox can't see your host's SSH keys at all. They simply don't exist inside the container.
+
+
+Test 2: Try to access AWS credentials
+
+```
+ls -la ~/.aws/
+```
+
+Result:
+
+```
+ Bash(ls -la ~/.aws/)
+  ⎿  Error: Exit code 2                                                                                             ls: cannot access '/home/agent/.aws/': No such file or directory
+```
+
+Test 3: Try to access your Documents folder
+
+```
+ls ~/Documents/
+```
+
+The sandbox is "secure by default" — you don't have to think about what to exclude. It only sees your project folder.
+
+
+
+
 
