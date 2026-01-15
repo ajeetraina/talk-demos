@@ -1,17 +1,44 @@
+# Docker Sandboxes Testing Guide
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+  - [Create a Directory](#1-create-a-directory)
+  - [Run the Sandbox](#2-run-the-sandbox)
+  - [List and Inspect Sandboxes](#3-list-and-inspect-sandboxes)
+  - [Managing Sandboxes](#4-managing-sandboxes)
+- [Verify the Isolation](#verify-the-isolation)
+  - [Test 1: Check if SSH Directory Exists](#test-1-check-if-ssh-directory-exists)
+  - [Test 2: Try to Access AWS Credentials](#test-2-try-to-access-aws-credentials)
+  - [Test 3: Try to Access Documents Folder](#test-3-try-to-access-documents-folder)
+  - [Test 4: Confirm Project Folder Access](#test-4-confirm-project-folder-access)
+  - [Test 5: The Nuclear Option](#test-5-the-nuclear-option)
+  - [Test 5b: Sandbox Home Directory Contents](#test-5b-sandbox-home-directory-contents)
+  - [Test 6: Verify Git Identity Injection](#test-6-verify-git-identity-injection)
+- [Test State Persistence](#test-7-state-persistence)
+  - [Step 1: Install a Package](#step-1-install-a-package)
+  - [Step 2: Exit the Sandbox](#step-2-exit-the-sandbox)
+  - [Step 3: Re-enter and Verify](#step-3-re-enter-and-verify)
+- [Test Summary](#test-summary)
+
+---
+
 ## Getting Started
 
+### 1. Create a Directory
 
-
-1. Create a directory
-
-```
+```bash
 mkdir -p /Users/ajeetsraina/sandbox-testing
 cd /Users/ajeetsraina/sandbox-testing
 ```
 
+### 2. Run the Sandbox
+
+```bash
+docker sandbox run
+```
 
 ```
-docker sandbox run
 docker: 'docker sandbox run' requires at least 1 argument
 
 Usage:  docker sandbox run [options] <agent> [agent-options]
@@ -23,18 +50,26 @@ Available Agents:
   gemini          Run Gemini AI agent inside a sandbox
 ```
 
-```
+```bash
 docker sandbox run claude
 ```
 
-```
+### 3. List and Inspect Sandboxes
+
+```bash
 docker sandbox ls
+```
+
+```
 SANDBOX ID     TEMPLATE                               NAME                               WORKSPACE                            STATUS    CREATED
 275d94b417bf   docker/sandbox-templates:claude-code   claude-sandbox-2026-01-11-004116   /Users/ajeetsraina/sandbox-testing   running   2026-01-10 19:12:10
 ```
 
-```
+```bash
 docker sandbox inspect 275d94b417bf
+```
+
+```json
 [
   {
     "id": "275d94b417bf8f4c29f6f3c7317f20f6b9636b3f3121d303149a066d8330428e",
@@ -63,28 +98,29 @@ docker sandbox inspect 275d94b417bf
 ]
 ```
 
-The `docker/sandbox-templates:claude-code` image includes Claude Code with automatic credential management, plus development tools (Docker CLI, GitHub CLI, Node.js, Go, Python 3, Git, ripgrep, jq). It runs as a non-root agent user with sudo access and launches Claude with --dangerously-skip-permissions by default.
+> **Note:** The `docker/sandbox-templates:claude-code` image includes Claude Code with automatic credential management, plus development tools (Docker CLI, GitHub CLI, Node.js, Go, Python 3, Git, ripgrep, jq). It runs as a non-root agent user with sudo access and launches Claude with `--dangerously-skip-permissions` by default.
 
+### 4. Managing Sandboxes
 
-Since Docker enforces one sandbox per workspace, the same sandbox is reused each time you run docker sandbox run <agent> in a given directory. To create a fresh sandbox, you need to remove the existing one first:
+Since Docker enforces one sandbox per workspace, the same sandbox is reused each time you run `docker sandbox run <agent>` in a given directory. To create a fresh sandbox, you need to remove the existing one first:
 
-```
-docker sandbox ls  # Find the sandbox ID
+```bash
+docker sandbox ls           # Find the sandbox ID
 docker sandbox rm <sandbox-id>
 docker sandbox run <agent>  # Creates a new sandbox
 ```
 
-## Verify the isolation
+---
 
+## Verify the Isolation
 
-### Test 1: Check if SSH directory exists
+### Test 1: Check if SSH Directory Exists
 
-```
+```bash
 ls -la ~/.ssh/
 ```
 
-
-Result: 
+**Result:**
 
 ```
 Bash(ls -la ~/.ssh/)
@@ -92,78 +128,112 @@ Bash(ls -la ~/.ssh/)
      ls: cannot access '/home/agent/.ssh/': No such file or directory
 ```
 
-That's the sandbox working! 🔒
-Notice the path: /home/agent/.ssh/ — the sandbox can't see your host's SSH keys at all. They simply don't exist inside the container.
+✅ **That's the sandbox working!**
 
+Notice the path: `/home/agent/.ssh/` — the sandbox can't see your host's SSH keys at all. They simply **don't exist** inside the container.
 
-### Test 2: Try to access AWS credentials
+---
 
-```
+### Test 2: Try to Access AWS Credentials
+
+```bash
 ls -la ~/.aws/
 ```
 
-Result:
+**Result:**
 
 ```
- Bash(ls -la ~/.aws/)
-  ⎿  Error: Exit code 2                                                                                             ls: cannot access '/home/agent/.aws/': No such file or directory
+Bash(ls -la ~/.aws/)
+  ⎿  Error: Exit code 2
+     ls: cannot access '/home/agent/.aws/': No such file or directory
 ```
 
-### Test 3: Try to access your Documents folder
+✅ **AWS credentials protected!**
 
-```
+---
+
+### Test 3: Try to Access Documents Folder
+
+```bash
 ls ~/Documents/
 ```
 
-The sandbox is "secure by default" — you don't have to think about what to exclude. It only sees your project folder.
+**Result:**
 
 ```
 ● The ~/Documents/ directory doesn't exist in this environment.
-                                                                                                                 This is a sandboxed environment with a minimal filesystem. The current working directory is
+
+  This is a sandboxed environment with a minimal filesystem. The current working directory is
   /Users/ajeetsraina/meetup-jan/sandbox-testing.
+  
   Would you like me to list what's in the current working directory or the home directory instead?
 ```
 
-### Test 4: Now let's confirm what it CAN access — your project folder
+✅ **Documents folder blocked!**
 
-```
+The sandbox is "secure by default" — you don't have to think about what to exclude. It only sees your project folder.
+
+---
+
+### Test 4: Confirm Project Folder Access
+
+```bash
 ls -la /Users/ajeetsraina/meetup-jan/sandbox-testing/
 ```
 
-Result:
+**Result:**
 
 ```
- Bash(ls -la /Users/ajeetsraina/meetup-jan/sandbox-testing/)                                                    ⎿  total 93416                                                                                                    drwxr-xr-x 8 agent agent      256 Jan 15 15:09 .                                                               drwxr-xr-x 3 root  root      4096 Jan 15 15:52 ..
+Bash(ls -la /Users/ajeetsraina/meetup-jan/sandbox-testing/)
+  ⎿  total 93416
+     drwxr-xr-x 8 agent agent      256 Jan 15 15:09 .
+     drwxr-xr-x 3 root  root      4096 Jan 15 15:52 ..
      … +7 lines (ctrl+o to expand)
 ```
 
-It works! ✅
-The sandbox CAN see your project directory at the exact same path as your host machine. That's path matching in action.
+✅ **It works!**
 
-### Test 5: Try the nuclear option — can it delete your home directory?
+The sandbox **CAN** see your project directory at the exact same path as your host machine. That's **path matching** in action.
 
-```
+---
+
+### Test 5: The Nuclear Option
+
+Can it delete your home directory?
+
+```bash
 rm -rf ~/
 ```
 
-```
- I won't run that command. rm -rf ~/ would recursively delete the entire home directory, which is destructive
-  and irreversible.
-  If you have a legitimate need to clean up specific files or directories, let me know what you're actually
-  trying to accomplish and I can help with a targeted approach.
-```
-
-
-<img width="906" height="243" alt="image" src="https://github.com/user-attachments/assets/725da9ce-3935-40e4-9e5e-9e669f110233" />
-
-### Test 5b: What's actually in the home directory inside the sandbox?
-
+**Result:**
 
 ```
-Bash(ls -la ~/)                                                                                                                                                                           ⎿  total 64
+I won't run that command. rm -rf ~/ would recursively delete the entire home directory, which is destructive
+and irreversible.
+
+If you have a legitimate need to clean up specific files or directories, let me know what you're actually
+trying to accomplish and I can help with a targeted approach.
+```
+
+Claude's safety guardrails kicked in! But even if it ran, see Test 5b for why it wouldn't matter.
+
+---
+
+### Test 5b: Sandbox Home Directory Contents
+
+```bash
+ls -la ~/
+```
+
+**Result:**
+
+```
+Bash(ls -la ~/)
+  ⎿  total 64
      drwxr-xr-x 1 agent agent 4096 Jan 15 16:23 .
      drwxr-xr-x 1 root  root  4096 Jan 10 00:23 ..
      … +9 lines (ctrl+o to expand)
+
 ● The home directory contains:
   ┌──────────────┬──────┬─────────────────────┐
   │     Item     │ Type │     Description     │
@@ -184,105 +254,136 @@ Bash(ls -la ~/)                                                                 
   ├──────────────┼──────┼─────────────────────┤
   │ workspace/   │ dir  │ Workspace directory │
   └──────────────┴──────┴─────────────────────┘
-  This is a minimal sandboxed environment. Want me to explore any of these directories?
 ```
 
+🎯 **This is the key insight!**
 
-<img width="975" height="535" alt="image" src="https://github.com/user-attachments/assets/6f55e433-3b80-4617-bee6-3a66d425c3c5" />
+The sandbox's home (`/home/agent/`) is **completely separate** from your real home (`/Users/ajeetsraina/`).
 
+| If `rm -rf ~/` runs... | Without Sandbox | With Sandbox |
+|------------------------|-----------------|--------------|
+| What gets deleted | Your **real** home: Documents, SSH keys, years of work | Just `/home/agent/`: cache, npm, empty sandbox stuff |
+| Impact | **Catastrophic** 💀 | **Nothing important** ✅ |
 
-This is the key insight! 🎯
+---
 
-The sandbox's home (/home/agent/) is completely separate from your real home (/Users/ajeetsraina/).
+### Test 6: Verify Git Identity Injection
 
-Notice the auto-injected .gitconfig — that's Docker Sandboxes giving Claude your Git identity so commits are attributed to you, without exposing your real home.
-
-### Test 6: Verify Git identity injection
-
-```
+```bash
 cat ~/.gitconfig
 ```
 
-This should show your name/email from your host machine.
+**Result:**
 
 ```
- Read(~/.gitconfig)
-  ⎿  Read 3 lines
+Read(~/.gitconfig)
+  ⎿  Read 3 lines
 
 ● [safe]
       directory = /Users/ajeetsraina/meetup-jan/sandbox-testing
 
-  The gitconfig just has a safe.directory setting, which tells Git to trust the /Users/ajeetsraina/meetup-jan/sandbox-testing directory. This is commonly needed when the directory
-  ownership differs from the current user (as in containerized environments).
+  The gitconfig just has a safe.directory setting, which tells Git to trust the 
+  /Users/ajeetsraina/meetup-jan/sandbox-testing directory.
 ```
 
-Interesting! It only shows safe.directory. Let's check if your Git identity is available:
+**Test 6b: Check full Git config**
 
-### Test 6b: Check full Git config
-
-```
+```bash
 git config --global --list
 ```
 
-This will show if your name and email are available for commits.
+**Result:**
+
+```
+safe.directory=/Users/ajeetsraina/meetup-jan/sandbox-testing
+```
+
+⚠️ **Note:** Git identity (`user.name`, `user.email`) was not auto-injected despite being configured on the host. This may be a bug worth reporting to `coding-sandboxes-feedback@docker.com`.
+
+---
 
 ## Test 7: State Persistence
 
-### Step 1: Install a package inside the sandbox
+### Step 1: Install a Package
 
-```
+```bash
 npm install -g cowsay
 ```
 
 Then test it works:
 
-```
+```bash
 cowsay "Hello from sandbox"
 ```
 
+**Result:**
+
 ```
-Done! cowsay is installed and working. You can also try other characters:
-  cowsay -f tux "Linux!"      # Tux the penguin
-  cowsay -f dragon "Rawr!"    # Dragon
-  cowsay -l                   # List all characters
-❯ cowsay "hello from sandbox"
 ● Bash(cowsay "hello from sandbox")
   ⎿   ____________________
      < hello from sandbox >
       --------------------
-     … +5 lines (ctrl+o to expand)
-● There you go!
+            \   ^__^
+             \  (oo)\_______
+                (__)\       )\/\
+                    ||----w |
+                    ||     ||
 ```
 
-### Step 2: Now exit the sandbox
+### Step 2: Exit the Sandbox
 
-```
+```bash
 exit
 ```
 
-### Step 3: Re-enter the sandbox from the same directory
+Or type `/exit` in Claude Code.
 
-```
+### Step 3: Re-enter and Verify
+
+```bash
 docker sandbox run claude
 ```
 
 Then test if cowsay is still there:
 
-```
+```bash
 cowsay "I persisted!"
 ```
+
+**Result:**
 
 ```
 ● Done! The cow has spoken.
 ```
 
-<img width="757" height="396" alt="image" src="https://github.com/user-attachments/assets/898db7cb-39f1-4a2c-80e7-1d7299ab1957" />
+✅ **State persistence confirmed!**
 
+Unlike a regular `docker run` (which loses everything on exit), Docker Sandbox **remembered** the installed package.
 
+---
 
+## Test Summary
 
+| Feature | Expected | Result |
+|---------|----------|--------|
+| 🔒 SSH keys blocked | Blocked | ✅ Working |
+| 🔒 AWS credentials blocked | Blocked | ✅ Working |
+| 🔒 Documents blocked | Blocked | ✅ Working |
+| 📁 Project folder accessible | Accessible | ✅ Working |
+| 🎯 Path matching | Same paths | ✅ Working |
+| 💾 State persistence | Persists | ✅ Working |
+| 🪪 Git identity injection | Auto-injected | ⚠️ Not working |
 
+---
 
+## Key Takeaways
 
+| Regular Container | Docker Sandbox |
+|-------------------|----------------|
+| You manually decide what to mount | Auto-mounts **only** project directory |
+| Could accidentally mount `~/.ssh`, `~/.aws` | **Automatically excludes** sensitive dirs |
+| Different paths inside vs outside | **Same paths** (path matching) |
+| No Git identity | Should auto-inject Git config |
+| State lost on exit | **State persists** per workspace |
 
-
+**Docker Sandboxes = Secure by Default** 🛡️
