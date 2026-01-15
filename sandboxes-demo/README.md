@@ -226,5 +226,62 @@ git config --global --list
 
 This will show if your name and email are available for commits.
 
+## Test 7: State Persistence
+
+### Step 1: Install a package inside the sandbox
+
+```
+npm install -g cowsay
+```
+
+Then test it works:
+
+```
+cowsay "Hello from sandbox"
+```
+
+```
+Done! cowsay is installed and working. You can also try other characters:
+  cowsay -f tux "Linux!"      # Tux the penguin
+  cowsay -f dragon "Rawr!"    # Dragon
+  cowsay -l                   # List all characters
+❯ cowsay "hello from sandbox"
+● Bash(cowsay "hello from sandbox")
+  ⎿   ____________________
+     < hello from sandbox >
+      --------------------
+     … +5 lines (ctrl+o to expand)
+● There you go!
+```
+
+### Step 2: Now exit the sandbox
+
+```
+exit
+```
+
+### Step 3: Re-enter the sandbox from the same directory
+
+```
+docker sandbox run claude
+```
+
+Then test if cowsay is still there:
+
+```
+cowsay "I persisted!"
+```
+
+```
+● Done! The cow has spoken.
+```
+
+
+
+
+
+
+
+
 
 
