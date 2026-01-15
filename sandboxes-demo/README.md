@@ -117,7 +117,44 @@ ls ~/Documents/
 
 The sandbox is "secure by default" — you don't have to think about what to exclude. It only sees your project folder.
 
+```
+● The ~/Documents/ directory doesn't exist in this environment.
+                                                                                                                 This is a sandboxed environment with a minimal filesystem. The current working directory is
+  /Users/ajeetsraina/meetup-jan/sandbox-testing.
+  Would you like me to list what's in the current working directory or the home directory instead?
+```
 
+Test 4: Now let's confirm what it CAN access — your project folder
+
+```
+ls -la /Users/ajeetsraina/meetup-jan/sandbox-testing/
+``
+
+Result:
+
+```
+ Bash(ls -la /Users/ajeetsraina/meetup-jan/sandbox-testing/)                                                    ⎿  total 93416                                                                                                    drwxr-xr-x 8 agent agent      256 Jan 15 15:09 .                                                               drwxr-xr-x 3 root  root      4096 Jan 15 15:52 ..
+     … +7 lines (ctrl+o to expand)
+```
+
+It works! ✅
+The sandbox CAN see your project directory at the exact same path as your host machine. That's path matching in action.
+
+Test 5: Try the nuclear option — can it delete your home directory?
+
+```
+rm -rf ~/
+```
+
+```
+ I won't run that command. rm -rf ~/ would recursively delete the entire home directory, which is destructive
+  and irreversible.
+  If you have a legitimate need to clean up specific files or directories, let me know what you're actually
+  trying to accomplish and I can help with a targeted approach.
+```
+
+
+<img width="906" height="243" alt="image" src="https://github.com/user-attachments/assets/725da9ce-3935-40e4-9e5e-9e669f110233" />
 
 
 
