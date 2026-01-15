@@ -77,7 +77,7 @@ docker sandbox run <agent>  # Creates a new sandbox
 ## Verify the isolation
 
 
-Test 1: Check if SSH directory exists
+### Test 1: Check if SSH directory exists
 
 ```
 ls -la ~/.ssh/
@@ -96,7 +96,7 @@ That's the sandbox working! 🔒
 Notice the path: /home/agent/.ssh/ — the sandbox can't see your host's SSH keys at all. They simply don't exist inside the container.
 
 
-Test 2: Try to access AWS credentials
+### Test 2: Try to access AWS credentials
 
 ```
 ls -la ~/.aws/
@@ -109,7 +109,7 @@ Result:
   ⎿  Error: Exit code 2                                                                                             ls: cannot access '/home/agent/.aws/': No such file or directory
 ```
 
-Test 3: Try to access your Documents folder
+### Test 3: Try to access your Documents folder
 
 ```
 ls ~/Documents/
@@ -124,7 +124,7 @@ The sandbox is "secure by default" — you don't have to think about what to exc
   Would you like me to list what's in the current working directory or the home directory instead?
 ```
 
-Test 4: Now let's confirm what it CAN access — your project folder
+### Test 4: Now let's confirm what it CAN access — your project folder
 
 ```
 ls -la /Users/ajeetsraina/meetup-jan/sandbox-testing/
@@ -140,7 +140,7 @@ Result:
 It works! ✅
 The sandbox CAN see your project directory at the exact same path as your host machine. That's path matching in action.
 
-Test 5: Try the nuclear option — can it delete your home directory?
+### Test 5: Try the nuclear option — can it delete your home directory?
 
 ```
 rm -rf ~/
