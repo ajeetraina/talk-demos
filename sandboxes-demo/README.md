@@ -19,7 +19,10 @@
   - [Step 1: Install a Package](#step-1-install-a-package)
   - [Step 2: Exit the Sandbox](#step-2-exit-the-sandbox)
   - [Step 3: Re-enter and Verify](#step-3-re-enter-and-verify)
+- [Test Environment Variables](#test-8-environment-variables)
+- [Test Docker Socket Access](#test-9-docker-socket-access)
 - [Test Summary](#test-summary)
+- [Key Takeaways](#key-takeaways)
 
 ---
 
@@ -362,6 +365,120 @@ Unlike a regular `docker run` (which loses everything on exit), Docker Sandbox *
 
 ---
 
+## Test 8: Environment Variables
+
+Environment variables must be set at sandbox creation time.
+
+### Step 1: Remove Existing Sandbox
+
+```bash
+# On your host terminal
+docker sandbox ls
+docker sandbox rm <sandbox-id>
+```
+
+### Step 2: Create Sandbox with Environment Variables
+
+```bash
+docker sandbox run -e MY_SECRET=supersecret123 -e APP_ENV=development claude
+```
+
+### Step 3: Verify Inside Sandbox
+
+```bash
+echo $MY_SECRET
+echo $APP_ENV
+```
+
+**Result:**
+
+```
+● Bash(echo $MY_SECRET)
+  ⎿  supersecret123
+
+● Bash(echo $APP_ENV)
+  ⎿  development
+```
+
+### Step 4: Confirm Full Environment Access
+
+```bash
+printenv | grep -E "MY_SECRET|APP_ENV"
+```
+
+**Result:**
+
+```
+● Bash(printenv | grep -E "MY_SECRET|APP_ENV")
+  ⎿  MY_SECRET=supersecret123
+     APP_ENV=development
+```
+
+✅ **Environment variables working!**
+
+> ⚠️ **Important Limitation:** You cannot hot-reload environment variables. To change them, you must remove and recreate the sandbox (which loses installed packages).
+
+---
+
+## Test 9: Docker Socket Access
+
+This allows the agent to run Docker commands inside the sandbox.
+
+> ⚠️ **Security Warning:** Mounting the Docker socket grants the agent full access to your Docker daemon, which has root-level privileges. Only use this when necessary.
+
+### Step 1: Remove Existing Sandbox
+
+```bash
+# On your host terminal
+exit
+docker sandbox rm <sandbox-id>
+```
+
+### Step 2: Create Sandbox with Docker Socket
+
+```bash
+docker sandbox run --mount-docker-socket claude
+```
+
+### Step 3: Test Docker Access
+
+```bash
+docker ps
+```
+
+**Result:**
+
+```
+● Bash(docker ps)
+  ⎿  Error: Exit code 1
+     permission denied while trying to connect to the docker API at unix:///var/run/docker.sock
+```
+
+Docker socket requires `sudo` inside the sandbox:
+
+```bash
+sudo docker ps
+```
+
+**Result:**
+
+```
+● Bash(sudo docker ps)
+  ⎿  CONTAINER ID   IMAGE                                  COMMAND                  CREATED              STATUS
+     dbab95b2ae42   docker/sandbox-templates:claude-code   "sh -c 'sleep 5; if …"   About a minute ago   Up About a minute
+     … +9 lines
+```
+
+✅ **Docker socket access working!**
+
+The agent can now:
+- List and manage containers
+- Build Docker images
+- Run `docker compose` commands
+- Execute integration tests with Testcontainers
+
+---
+
 ## Test Summary
 
 | Feature | Expected | Result |
@@ -372,6 +489,8 @@ Unlike a regular `docker run` (which loses everything on exit), Docker Sandbox *
 | 📁 Project folder accessible | Accessible | ✅ Working |
 | 🎯 Path matching | Same paths | ✅ Working |
 | 💾 State persistence | Persists | ✅ Working |
+| 🔧 Environment variables | Available | ✅ Working |
+| 🐳 Docker socket access | With sudo | ✅ Working |
 | 🪪 Git identity injection | Auto-injected | ⚠️ Not working |
 
 ---
